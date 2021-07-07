@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Title | Fluent-Python Notes</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Title" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="My notes from the best book for intermediate python." />
+<meta property="og:description" content="My notes from the best book for intermediate python." />
+<link rel="canonical" href="https://jjmachan.github.io/fluent-python/2021/07/02/ch1-data-model.html" />
+<meta property="og:url" content="https://jjmachan.github.io/fluent-python/2021/07/02/ch1-data-model.html" />
+<meta property="og:site_name" content="Fluent-Python Notes" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-02T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://jjmachan.github.io/fluent-python/2021/07/02/ch1-data-model.html","@type":"BlogPosting","headline":"Title","dateModified":"2021-07-02T00:00:00-05:00","datePublished":"2021-07-02T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jjmachan.github.io/fluent-python/2021/07/02/ch1-data-model.html"},"description":"My notes from the best book for intermediate python.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fluent-python/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jjmachan.github.io/fluent-python/feed.xml" title="Fluent-Python Notes" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176495138-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-176495138-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/fluent-python/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fluent-python/">Fluent-Python Notes</a></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-02T00:00:00-05:00" itemprop="datePublished">
+        Jul 2, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/jjmachan/fluent-python/tree/master/_notebooks/2021-07-02-ch1-data-model.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fluent-python/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/jjmachan/fluent-python/blob/master/_notebooks/2021-07-02-ch1-data-model.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/fluent-python/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-07-02-ch1-data-model.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To undertant how python works as a framework it is crutial that you get the Python Data Model. Python is very consistent and by that I mean that once you have some experince with the language you can start to correctly make informed guesses on other features about python even if its new. This will help you make your objects more pythonic by leveraging the options python has for:</p>
+<ol>
+<li>Iteration</li>
+<li>Collections</li>
+<li>Attribute access</li>
+<li>Operator overloading</li>
+<li>Function and method invocation</li>
+<li>Object creation and destruction</li>
+<li>String representation and formatting</li>
+<li>Managed contexts (i.e., with blocks)</li>
+</ol>
+<p>Let see an example to show you the power of <code>__getitem__</code> and <code>__len__</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="n">Card</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Card&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;suit&#39;</span><span class="p">])</span>
+<span class="n">Card</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>__main__.Card</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">FrenchDeck</span><span class="p">:</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;JQKA&#39;</span><span class="p">)</span>
+    <span class="n">suits</span> <span class="o">=</span> <span class="s1">&#39;spades diamonds clubs hearts&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cards</span> <span class="o">=</span> <span class="p">[</span><span class="n">Card</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">suit</span><span class="p">)</span> <span class="k">for</span> <span class="n">suit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">suits</span>
+                                        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranks</span><span class="p">]</span>
+        
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cards</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cards</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deck</span> <span class="o">=</span> <span class="n">FrenchDeck</span><span class="p">()</span>
+<span class="n">deck</span><span class="o">.</span><span class="n">_cards</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">deck</span><span class="p">),</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([Card(rank=&#39;2&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;3&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;4&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;5&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;6&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;7&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;8&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;9&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;10&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;J&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;Q&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;K&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;A&#39;, suit=&#39;spades&#39;),
+  Card(rank=&#39;2&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;3&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;4&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;5&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;6&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;7&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;8&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;9&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;10&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;J&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;Q&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;K&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;A&#39;, suit=&#39;diamonds&#39;),
+  Card(rank=&#39;2&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;3&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;4&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;5&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;6&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;7&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;9&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;10&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;J&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;Q&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;K&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;A&#39;, suit=&#39;clubs&#39;),
+  Card(rank=&#39;2&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;3&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;4&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;5&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;6&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;7&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;8&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;9&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;10&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;J&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;Q&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;),
+  Card(rank=&#39;A&#39;, suit=&#39;hearts&#39;)],
+ 52,
+ Card(rank=&#39;2&#39;, suit=&#39;spades&#39;))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we have created a class FrenchDeck that is short but still packs a punch. All the basic operations are supported. Now imagine we have another usecase to pick a random card. Normally we would add another function but in this case we can use pythons existing lib function <code>random.choice()</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+
+<span class="n">choice</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>We’ve just seen two advantages of using special methods to leverage the Python data
+model:&gt; 1. The users of your classes don’t have to memorize arbitrary method names for stan‐dard operations (“How to get the number of items? Is it .size() , .length() , or
+what?”).</p>
+<ol>
+<li>It’s easier to benefit from the rich Python standard library and avoid reinventing
+the wheel, like the random.choice function.</li>
+</ol>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deck</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Card(rank=&#39;3&#39;, suit=&#39;spades&#39;),
+ Card(rank=&#39;4&#39;, suit=&#39;spades&#39;),
+ Card(rank=&#39;5&#39;, suit=&#39;spades&#39;),
+ Card(rank=&#39;6&#39;, suit=&#39;spades&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">deck</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;K&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Card(rank=&#39;K&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># the in operator does a sequential scan.</span>
+
+<span class="n">Card</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="s1">&#39;spades&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Card</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;spades&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">deck</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suit_value</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">spades</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hearts</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">diamonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">clubs</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">spades_high</span><span class="p">(</span><span class="n">card</span><span class="p">):</span>
+    <span class="n">rank_value</span> <span class="o">=</span> <span class="n">FrenchDeck</span><span class="o">.</span><span class="n">ranks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rank_value</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">suit_value</span><span class="p">)</span> <span class="o">+</span> <span class="n">suit_value</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">suit</span><span class="p">]</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deck</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">spades_high</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>3
+7
+11
+15
+19
+23
+27
+31
+35
+39
+43
+47
+51
+1
+5
+9
+13
+17
+21
+25
+29
+33
+37
+41
+45
+49
+0
+4
+8
+12
+16
+20
+24
+28
+32
+36
+40
+44
+48
+2
+6
+10
+14
+18
+22
+26
+30
+34
+38
+42
+46
+50
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">spades_high</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Card(rank=&#39;2&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;2&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;2&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;2&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;3&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;3&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;3&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;3&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;4&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;4&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;4&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;4&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;5&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;5&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;5&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;5&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;6&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;6&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;6&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;6&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;7&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;7&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;7&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;7&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;8&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;8&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;8&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;9&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;9&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;9&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;9&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;10&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;10&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;10&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;10&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;J&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;J&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;J&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;J&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;Q&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;Q&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;Q&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;Q&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;K&#39;, suit=&#39;spades&#39;)
+Card(rank=&#39;A&#39;, suit=&#39;clubs&#39;)
+Card(rank=&#39;A&#39;, suit=&#39;diamonds&#39;)
+Card(rank=&#39;A&#39;, suit=&#39;hearts&#39;)
+Card(rank=&#39;A&#39;, suit=&#39;spades&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Although FrenchDeck implicitly inherits from object its functionality is not inherited,
+but comes from leveraging the data model and composition. By implementing the special 
+methods <code>__len__</code> and <code>__getitem__</code> , our FrenchDeck behaves like a standard Python
+sequence, allowing it to benefit from core language features (e.g., iteration and slicing). 
+and from the standard library, as shown by the examples using random.choice ,
+reversed , and sorted . Thanks to composition, the <code>__len__</code> and <code>__getitem__</code> imple‐
+mentations can hand off all the work to a <em>list</em> object, <code>self._cards</code> .</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Enumerating-Numeric-Types">Enumerating Numeric Types<a class="anchor-link" href="#Enumerating-Numeric-Types"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">hypot</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Vector(</span><span class="si">%d</span><span class="s1">, </span><span class="si">%d</span><span class="s1">)&#39;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">hypot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span>
+        
+        <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scalar</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">scalar</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">scalar</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+        
+        <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Vector(3, 4)
+5.0
+Vector(6, 8)
+Vector(3, 4)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see we implemented many special methods but we don't directly invoke them. The special methods are to be invoked by the interpretor most of the time, unless you are doing a lot of metaprogramming.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">bool</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/fluent-python/2021/07/02/ch1-data-model.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fluent-python/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fluent-python/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fluent-python/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My notes from the best book for intermediate python.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
