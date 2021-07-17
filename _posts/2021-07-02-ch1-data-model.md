@@ -1,6 +1,10 @@
 ---
 keywords: fastai
-title: Title
+description: Introduction about what "Pythonic" means.
+title: "Chapter 1: Data Model"
+toc: true
+badges: true
+author: JJmachan
 nb_path: _notebooks/2021-07-02-ch1-data-model.ipynb
 layout: notebook
 ---
@@ -16,7 +20,7 @@ layout: notebook
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To undertant how python works as a framework it is crutial that you get the Python Data Model. Python is very consistent and by that I mean that once you have some experince with the language you can start to correctly make informed guesses on other features about python even if its new. This will help you make your objects more pythonic by leveraging the options python has for:</p>
+<h2 id="Python-Data-Model">Python Data Model<a class="anchor-link" href="#Python-Data-Model"> </a></h2><p>To undertant how python works as a framework it is crutial that you get the Python Data Model. Python is very consistent and by that I mean that once you have some experince with the language you can start to correctly make informed guesses on other features about python even if its new. This will help you make your objects more pythonic by leveraging the options python has for:</p>
 <ol>
 <li>Iteration</li>
 <li>Collections</li>
@@ -27,6 +31,7 @@ layout: notebook
 <li>String representation and formatting</li>
 <li>Managed contexts (i.e., with blocks)</li>
 </ol>
+<p>Studing these will give you the power to make your own python object play nicely with the python language and use many of the freatures mentioned above. In short makes you code "pythonic".</p>
 <p>Let see an example to show you the power of <code>__getitem__</code> and <code>__len__</code>.</p>
 
 </div>
@@ -41,8 +46,13 @@ layout: notebook
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
 
+<span class="c1"># namedtuple - tuples with names for each value in it (much like a class)</span>
 <span class="n">Card</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Card&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;suit&#39;</span><span class="p">])</span>
-<span class="n">Card</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Card</span><span class="p">(</span><span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;diamonds&#39;</span><span class="p">)</span>
+
+<span class="c1"># individual card object</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">suit</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -54,12 +64,11 @@ layout: notebook
 
 <div class="output_area">
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>__main__.Card</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Card(rank=&#39;7&#39;, suit=&#39;diamonds&#39;)
+7 diamonds
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -105,7 +114,9 @@ layout: notebook
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">deck</span> <span class="o">=</span> <span class="n">FrenchDeck</span><span class="p">()</span>
-<span class="n">deck</span><span class="o">.</span><span class="n">_cards</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">deck</span><span class="p">),</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># with this simple class, we can already use `len` and `__getitem__`</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">deck</span><span class="p">),</span> <span class="n">deck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -120,60 +131,7 @@ layout: notebook
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>([Card(rank=&#39;2&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;3&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;4&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;5&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;6&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;7&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;8&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;9&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;10&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;J&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;Q&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;K&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;A&#39;, suit=&#39;spades&#39;),
-  Card(rank=&#39;2&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;3&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;4&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;5&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;6&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;7&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;8&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;9&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;10&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;J&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;Q&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;K&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;A&#39;, suit=&#39;diamonds&#39;),
-  Card(rank=&#39;2&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;3&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;4&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;5&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;6&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;7&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;9&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;10&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;J&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;Q&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;K&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;A&#39;, suit=&#39;clubs&#39;),
-  Card(rank=&#39;2&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;3&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;4&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;5&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;6&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;7&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;8&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;9&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;10&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;J&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;Q&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;),
-  Card(rank=&#39;A&#39;, suit=&#39;hearts&#39;)],
- 52,
- Card(rank=&#39;2&#39;, suit=&#39;spades&#39;))</pre>
+<pre>(52, Card(rank=&#39;2&#39;, suit=&#39;spades&#39;))</pre>
 </div>
 
 </div>
@@ -215,7 +173,7 @@ layout: notebook
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;)</pre>
+<pre>Card(rank=&#39;5&#39;, suit=&#39;hearts&#39;)</pre>
 </div>
 
 </div>
@@ -236,6 +194,7 @@ what?”).</p>
 the wheel, like the random.choice function.</li>
 </ol>
 </blockquote>
+<p>But we have even more features</p>
 
 </div>
 </div>
@@ -380,6 +339,13 @@ Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>we can also make use the build-in <code>sorted()</code> function. We just need to proved a function for providing the values of the cards. Here the logic is provided in <code>spedes_high</code></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -408,90 +374,7 @@ Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deck</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">spades_high</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>3
-7
-11
-15
-19
-23
-27
-31
-35
-39
-43
-47
-51
-1
-5
-9
-13
-17
-21
-25
-29
-33
-37
-41
-45
-49
-0
-4
-8
-12
-16
-20
-24
-28
-32
-36
-40
-44
-48
-2
-6
-10
-14
-18
-22
-26
-30
-34
-38
-42
-46
-50
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">spades_high</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">spades_high</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
 </pre></div>
 
@@ -515,48 +398,6 @@ Card(rank=&#39;3&#39;, suit=&#39;hearts&#39;)
 Card(rank=&#39;3&#39;, suit=&#39;spades&#39;)
 Card(rank=&#39;4&#39;, suit=&#39;clubs&#39;)
 Card(rank=&#39;4&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;4&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;4&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;5&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;5&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;5&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;5&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;6&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;6&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;6&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;6&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;7&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;7&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;7&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;7&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;8&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;8&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;8&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;8&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;9&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;9&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;9&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;9&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;10&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;10&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;10&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;10&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;J&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;J&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;J&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;J&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;Q&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;Q&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;Q&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;Q&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;K&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;K&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;K&#39;, suit=&#39;spades&#39;)
-Card(rank=&#39;A&#39;, suit=&#39;clubs&#39;)
-Card(rank=&#39;A&#39;, suit=&#39;diamonds&#39;)
-Card(rank=&#39;A&#39;, suit=&#39;hearts&#39;)
-Card(rank=&#39;A&#39;, suit=&#39;spades&#39;)
 </pre>
 </div>
 </div>
@@ -577,6 +418,13 @@ and from the standard library, as shown by the examples using random.choice ,
 reversed , and sorted . Thanks to composition, the <code>__len__</code> and <code>__getitem__</code> imple‐
 mentations can hand off all the work to a <em>list</em> object, <code>self._cards</code> .</p>
 </blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-special-methods-are-used">How special methods are used<a class="anchor-link" href="#How-special-methods-are-used"> </a></h3><p>Normally you just define these special methods and call them via the inbuild methods like <code>len()</code> <code>in</code> <code>[index]</code> instead of calling it via <code>object.__len__()</code>. This gives you speed up in some cases and also plays nicely with other other python library functions since they all are now interfacing with the same endpoints.</p>
 
 </div>
 </div>
