@@ -6,11 +6,19 @@
 
 https://jjmachan.github.io/fluent-python/
 
-# My Blog
-
+# Fluent Python Notes
 
 _powered by [fastpages](https://github.com/fastai/fastpages)_
 
+This contains all my notes for the awesome Fluent Python book by Luciano
+Ramalho (highly recommend it too). I'm building this as an online notebook as I
+go through the book and will save my learnings and useful codesnippets. Just
+consider this as my online notebook.
+
+### Running it
+
+`make server` - this will start the jekyll(4000) and notebook(8080) server and you can go to
+corresponding ports to make changes
 
 ## What To Do Next?
 
