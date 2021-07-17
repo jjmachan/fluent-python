@@ -20,7 +20,7 @@ layout: notebook
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Python-Data-Model">Python Data Model<a class="anchor-link" href="#Python-Data-Model"> </a></h2><p>To undertant how python works as a framework it is crutial that you get the Python Data Model. Python is very consistent and by that I mean that once you have some experince with the language you can start to correctly make informed guesses on other features about python even if its new. This will help you make your objects more pythonic by leveraging the options python has for:</p>
+<h2 id="Pythonic-Card-Deck">Pythonic Card Deck<a class="anchor-link" href="#Pythonic-Card-Deck"> </a></h2><p>To undertant how python works as a framework it is crutial that you get the Python Data Model. Python is very consistent and by that I mean that once you have some experince with the language you can start to correctly make informed guesses on other features about python even if its new. This will help you make your objects more pythonic by leveraging the options python has for:</p>
 <ol>
 <li>Iteration</li>
 <li>Collections</li>
@@ -424,7 +424,7 @@ mentations can hand off all the work to a <em>list</em> object, <code>self._card
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-special-methods-are-used">How special methods are used<a class="anchor-link" href="#How-special-methods-are-used"> </a></h3><p>Normally you just define these special methods and call them via the inbuild methods like <code>len()</code> <code>in</code> <code>[index]</code> instead of calling it via <code>object.__len__()</code>. This gives you speed up in some cases and also plays nicely with other other python library functions since they all are now interfacing with the same endpoints.</p>
+<h2 id="How-special-methods-are-used">How special methods are used<a class="anchor-link" href="#How-special-methods-are-used"> </a></h2><p>Normally you just define these special methods and call them via the inbuild methods like <code>len()</code> <code>in</code> <code>[index]</code> instead of calling it via <code>object.__len__()</code>. This gives you speed up in some cases and also plays nicely with other other python library functions since they all are now interfacing with the same endpoints.</p>
 
 </div>
 </div>
