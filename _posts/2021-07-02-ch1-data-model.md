@@ -431,7 +431,8 @@ mentations can hand off all the work to a <em>list</em> object, <code>self._card
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Enumerating-Numeric-Types">Enumerating Numeric Types<a class="anchor-link" href="#Enumerating-Numeric-Types"> </a></h3>
+<h3 id="Enumerating-Numeric-Types">Enumerating Numeric Types<a class="anchor-link" href="#Enumerating-Numeric-Types"> </a></h3><p>Special methods can also be used to repond to operators like +, - etc. We will see an example of vector operations.</p>
+
 </div>
 </div>
 </div>
@@ -573,6 +574,115 @@ Vector(3, 4)
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="String-Representation">String Representation<a class="anchor-link" href="#String-Representation"> </a></h3><p>We use the <code>__repr__</code> special method to get the buildin string representation of of the object for inspection (note the usage in <code>vector</code> object. There are also other special methods like <code>__repr__with__str__</code> which is called by <code>str()</code> or <code>__str__</code> which is used to return a string for display to the end user. If your only implementing 1 function stick with <code>__repr__</code> since <code>print()</code> will fall back to that if <code>__str__</code> is not found.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Arithmetic-Operators">Arithmetic Operators<a class="anchor-link" href="#Arithmetic-Operators"> </a></h3><p>In the above example we have implemented <code>__add__</code> and <code>__mul__</code>. Note in both cases we are returning new object, reading from self, and other. This is the expected behaviour.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Boolean-Value-of-Custom-Type">Boolean Value of Custom Type<a class="anchor-link" href="#Boolean-Value-of-Custom-Type"> </a></h3><p>In python any object can be used in a boolean context. If <code>__bool__</code> or <code>__len__</code> is not implemented then the object will be truthy by default. IF <code>__bool__</code> is implemented that is called, if not python calls <code>__len__</code> and checks if the length is 0.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">t</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&lt;__main__.Test at 0x7fed149a53a0&gt;, True)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+    
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    
+<span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">t</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&lt;__main__.Test at 0x7fed149acd30&gt;, False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Why-len-is-Not-a-Method">Why len is Not a Method<a class="anchor-link" href="#Why-len-is-Not-a-Method"> </a></h2><blockquote><p>Practicality beats purity</p>
+</blockquote>
+<p><code>len</code> (similar to abs) in built-in data types, has a shortcut implmentation in CPython and they are just returning their length from the values defined in the c struct code. This makes it super fast for built-in data types. You can also consider these as unary operations.</p>
+
+</div>
+</div>
+</div>
 </div>
  
 
