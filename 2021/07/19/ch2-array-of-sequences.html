@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Chapter 2: An Array of Sequences | Fluent-Python Notes</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Chapter 2: An Array of Sequences" />
+<meta name="author" content="JJmachan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Exploring sequences in python." />
+<meta property="og:description" content="Exploring sequences in python." />
+<link rel="canonical" href="https://jjmachan.github.io/fluent-python/2021/07/19/ch2-array-of-sequences.html" />
+<meta property="og:url" content="https://jjmachan.github.io/fluent-python/2021/07/19/ch2-array-of-sequences.html" />
+<meta property="og:site_name" content="Fluent-Python Notes" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://jjmachan.github.io/fluent-python/2021/07/19/ch2-array-of-sequences.html","@type":"BlogPosting","headline":"Chapter 2: An Array of Sequences","dateModified":"2021-07-19T00:00:00-05:00","datePublished":"2021-07-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jjmachan.github.io/fluent-python/2021/07/19/ch2-array-of-sequences.html"},"author":{"@type":"Person","name":"JJmachan"},"description":"Exploring sequences in python.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fluent-python/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jjmachan.github.io/fluent-python/feed.xml" title="Fluent-Python Notes" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176495138-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-176495138-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/fluent-python/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fluent-python/">Fluent-Python Notes</a></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Chapter 2: An Array of Sequences</h1>
+<p class="page-description">Exploring sequences in python.</p>
+<p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-19T00:00:00-05:00" itemprop="datePublished">
+        Jul 19, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">JJmachan</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/jjmachan/fluent-python/tree/master/_notebooks/2021-07-19-ch2-array-of-sequences.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fluent-python/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/jjmachan/fluent-python/blob/master/_notebooks/2021-07-19-ch2-array-of-sequences.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/fluent-python/assets/badges/colab.svg" alt="Open In Colab">
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Overview-of-build-in-Sequence">Overview of build-in Sequence </a></li>
+<li class="toc-entry toc-h2">
+<a href="#List-Comprehensions-and-Generator-Expressions">List Comprehensions and Generator Expressions </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Generator-Expressions">Generator Expressions </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#Tuples-are-not-just-Immutable-Lists">Tuples are not just Immutable Lists </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Tuples-as-Records">Tuples as Records </a></li>
+<li class="toc-entry toc-h3"><a href="#Slicing">Slicing </a></li>
+<li class="toc-entry toc-h3"><a href="#Sort-and-Sorted">Sort and Sorted </a></li>
+<li class="toc-entry toc-h3"><a href="#bisect-module">bisect module </a></li>
+<li class="toc-entry toc-h3">
+<a href="#Sequences-other-than-lists">Sequences other than lists </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Arrays">Arrays </a></li>
+<li class="toc-entry toc-h4"><a href="#Memory-Views">Memory Views </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3">
+<a href="#Deque-and-other-Queues">Deque and other Queues </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Other-implementations-of-Queues">Other implementations of Queues </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-07-19-ch2-array-of-sequences.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview-of-build-in-Sequence">
+<a class="anchor" href="#Overview-of-build-in-Sequence" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview of build-in Sequence<a class="anchor-link" href="#Overview-of-build-in-Sequence"> </a>
+</h2>
+<ol>
+<li>
+<p>Container Sequence
+ They hold references of other objects. They can store different types of objects. Eg list, tuple, collections.deque.</p>
+</li>
+<li>
+<p>Flat Sequence
+ Physically store the objects in its own memory space. Store similar values. Eg str, byte, memoryview, array.array</p>
+</li>
+</ol>
+<p>they can also be catogrised as immutable and mutable.</p>
+<h2 id="List-Comprehensions-and-Generator-Expressions">
+<a class="anchor" href="#List-Comprehensions-and-Generator-Expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>List Comprehensions and Generator Expressions<a class="anchor-link" href="#List-Comprehensions-and-Generator-Expressions"> </a>
+</h2>
+<p>Listcomps are more readable since they are only used to build new lists. They are also really powerfull. They are also specific, listcomps can only do one thing, build new lists.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Listcomps can also do everything the <code>map</code> and <code>filter</code> functions perform, without using python <code>lambda</code>. Its seems to be faster in simple use cases too.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'black'</span><span class="p">,</span> <span class="s1">'white'</span><span class="p">]</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'S'</span><span class="p">,</span> <span class="s1">'M'</span><span class="p">,</span> <span class="s1">'L'</span><span class="p">,</span> <span class="s1">'XL'</span><span class="p">]</span>
+
+<span class="c1"># do not the order of the for loops determins the order of the product</span>
+<span class="n">tshirts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span>
+                         <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">]</span>
+<span class="n">tshirts</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[('black', 'S'),
+ ('black', 'M'),
+ ('black', 'L'),
+ ('black', 'XL'),
+ ('white', 'S'),
+ ('white', 'M'),
+ ('white', 'L'),
+ ('white', 'XL')]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Generator-Expressions">
+<a class="anchor" href="#Generator-Expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generator Expressions<a class="anchor-link" href="#Generator-Expressions"> </a>
+</h3>
+<p>Listcomps build lists, but to fill up all other sequences, genexp is the way to go. You can build tuples, arrays and other sequences from listcomps but genexps saves memory because they only generate one element at a time instead of storing the whole thing in memory with a list and just passing it into another constructor</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">symbols</span> <span class="o">=</span> <span class="s1">'$¢£¥€¤'</span>
+<span class="nb">tuple</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(36, 162, 163, 165, 8364, 164)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">genexp</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">listcomp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">genexp</span><span class="p">,</span> <span class="n">listcomp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&lt;generator object &lt;genexpr&gt; at 0x7f382dfc30b0&gt;,
+ [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># seems like genexps are faster too!</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listcomp</span><span class="p">:</span>
+    <span class="c1">#print(i)</span>
+    <span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>224 ns ± 1.3 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">genexp</span><span class="p">:</span>
+    <span class="c1">#print(i)</span>
+    <span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>41.5 ns ± 0.399 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">array</span> 
+<span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">'I'</span><span class="p">,</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array('I', [36L, 194L, 162L, 194L, 163L, 194L, 165L, 226L, 130L, 172L, 194L, 164L])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The main advantage of genexp is that they are never build in memory. So in cases where you just want to use the resulting sequence and not save it this becomes handy. This make genexps really scalable. For example if you took the cartician product we did with listcomps earlier and wanted to do that for a million colors and sizes just so that you can print them out will lead to huge use of memory, but if you use a genexp, only one item needs to be created when executing each loop.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tuples-are-not-just-Immutable-Lists">
+<a class="anchor" href="#Tuples-are-not-just-Immutable-Lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tuples are not just Immutable Lists<a class="anchor-link" href="#Tuples-are-not-just-Immutable-Lists"> </a>
+</h2>
+<p>Tuples are immutable lists and records with no field names</p>
+<h3 id="Tuples-as-Records">
+<a class="anchor" href="#Tuples-as-Records" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tuples as Records<a class="anchor-link" href="#Tuples-as-Records"> </a>
+</h3>
+<p>tuples hold record, each item in the tuple holds data for one field and the position of the item gives its meaning.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>using * to grab excess items</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rest</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">"&lt;ipython-input-11-a436b2c917d4&gt;"</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
+<span class="ansi-red-fg">    one, two, *rest = range(1, 10)</span>
+              ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>Names tuples</em></strong> function is a factory that produces a subclass of tuples that attaches field names and class names to it.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="c1"># takes the name of the class and either a iterable with field names or as a string in which field</span>
+<span class="c1"># names are seperated by space</span>
+<span class="n">City</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'City'</span><span class="p">,</span> <span class="s1">'name county population coordinates'</span><span class="p">)</span>
+<span class="n">tokyo</span> <span class="o">=</span> <span class="n">City</span><span class="p">(</span><span class="s1">'Tokyo'</span><span class="p">,</span> <span class="s1">'JP'</span><span class="p">,</span> <span class="mf">36.933</span><span class="p">,</span> <span class="p">(</span><span class="mf">35.689722</span><span class="p">,</span> <span class="mf">139.691667</span><span class="p">))</span>
+<span class="n">tokyo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>City(name='Tokyo', county='JP', population=36.933, coordinates=(35.689722, 139.691667))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tokyo</span><span class="o">.</span><span class="n">population</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>36.933</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>NamedTuple has a few attributes in addition to the ones in tuple. they are <em>_fields</em>, <em>_make(iterable)</em>, <em>_asdict()</em></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokyo</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
+<span class="n">LatLong</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'LatLong'</span><span class="p">,</span> <span class="s1">'lat long'</span><span class="p">)</span>
+<span class="n">delhi_data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Delhi NCR'</span><span class="p">,</span> <span class="s1">'IN'</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="n">LatLong</span><span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">delhi_data</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('name', 'county', 'population', 'coordinates')
+OrderedDict([('name', 'Tokyo'), ('county', 'JP'), ('population', 36.933), ('coordinates', (35.689722, 139.691667))])
+City(name='Delhi NCR', county='IN', population=21.935, coordinates=LatLong(lat=28.613889, long=77.208889))
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Slicing">
+<a class="anchor" href="#Slicing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Slicing<a class="anchor-link" href="#Slicing"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">strs</span> <span class="o">=</span> <span class="s1">'bicycle'</span>
+<span class="n">strs</span><span class="p">[::</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'eccb'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">strs</span><span class="p">[::</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'bye'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Internally [a<img class="emoji" title=":b:" alt=":b:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f171.png" height="20" width="20">c] creates a slice object slice(a, b, c) which is invoked by the <code>obj.__getitem__(slice(start, stop, step))</code></p>
+<p>You can also assign to slices.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">l</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">l</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 20, 30, 5, 6, 7, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">del</span> <span class="n">l</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">l</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 20, 30, 5, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-da8b10461280&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>l<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">100</span>
+
+<span class="ansi-red-fg">TypeError</span>: can only assign an iterable</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">l</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 100, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'abc'</span> <span class="o">*</span> <span class="mi">3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'abcabcabc'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'abc'</span> <span class="o">+</span> <span class="s1">'def'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'abcdef'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">'_'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">board</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">board</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'X'</span>
+<span class="n">board</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[['_', '_', '_'], ['_', '_', '_'], ['_', '_', 'X']]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weird_board</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">'_'</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+<span class="n">weird_board</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'2'</span>
+<span class="n">weird_board</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[['_', '_', '2'], ['_', '_', '2'], ['_', '_', '2']]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here the outer list is made up of refferences of the inner list</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sort-and-Sorted">
+<a class="anchor" href="#Sort-and-Sorted" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort and Sorted<a class="anchor-link" href="#Sort-and-Sorted"> </a>
+</h3>
+<p><code>list.sort()</code> sorts the list in place and returns a None object to signal this. Infact this is a common practice in Python standard lib to return None from functions that operate on objects in place.</p>
+<p>The build-in function <code>sorted()</code> on the other hand creates a new array and returns it.</p>
+<p>Both of them take 2 arguments</p>
+<ol>
+<li>reverse - which is a flag which tells to sort in reverse order</li>
+<li>key - A one argument function that generates a key for each element to sort</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'grape'</span><span class="p">,</span> <span class="s1">'raspberry'</span><span class="p">,</span> <span class="s1">'apple'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">]</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['apple', 'banana', 'grape', 'raspberry']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fruits</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['grape', 'raspberry', 'apple', 'banana']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fruits</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fruits</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['apple', 'banana', 'grape', 'raspberry']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="bisect-module">
+<a class="anchor" href="#bisect-module" aria-hidden="true"><span class="octicon octicon-link"></span></a>bisect module<a class="anchor-link" href="#bisect-module"> </a>
+</h3>
+<p>bisect finds the insert point for an item in a list and returns the index, then we use <code>list.insert(index, item)</code> to add the item to the corresponding index.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">bisect</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">HAYSTACK</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">NEEDLES</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+
+<span class="n">ROW_FMT</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{0:2d}</span><span class="s1"> @ </span><span class="si">{1:2d}</span><span class="s1">         </span><span class="si">{2}{0:&lt;2d}</span><span class="s1">'</span>
+
+<span class="k">def</span> <span class="nf">demo</span><span class="p">(</span><span class="n">bisect_fn</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">needle</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">NEEDLES</span><span class="p">):</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">bisect_fn</span><span class="p">(</span><span class="n">HAYSTACK</span><span class="p">,</span> <span class="n">needle</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">position</span> <span class="o">*</span> <span class="s1">'  |'</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ROW_FMT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">needle</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">offset</span><span class="p">))</span>
+        
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">add_to</span><span class="o">=</span><span class="s1">'right'</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">add_to</span> <span class="o">==</span> <span class="s1">'left'</span><span class="p">:</span>
+        <span class="n">bisect_fn</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bisect_fn</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'DEMO: '</span><span class="p">,</span> <span class="n">bisect_fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'haystack -&gt;'</span><span class="p">,</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'</span><span class="si">%2d</span><span class="s1">'</span><span class="o">%</span><span class="k">n</span> for n in HAYSTACK))
+    <span class="n">demo</span><span class="p">(</span><span class="n">bisect_fn</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('DEMO: ', 'bisect')
+('haystack -&gt;', ' 1  4  5  6  8 12 15 20 21 23 23 26 29 30')
+31 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |31
+30 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |30
+29 @ 13           |  |  |  |  |  |  |  |  |  |  |  |  |29
+23 @ 11           |  |  |  |  |  |  |  |  |  |  |23
+22 @  9           |  |  |  |  |  |  |  |  |22
+10 @  5           |  |  |  |  |10
+ 8 @  5           |  |  |  |  |8 
+ 5 @  3           |  |  |5 
+ 2 @  1           |2 
+ 1 @  1           |1 
+ 0 @  0         0 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">main</span><span class="p">(</span><span class="n">add_to</span><span class="o">=</span><span class="s1">'left'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('DEMO: ', 'bisect_left')
+('haystack -&gt;', ' 1  4  5  6  8 12 15 20 21 23 23 26 29 30')
+31 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |31
+30 @ 13           |  |  |  |  |  |  |  |  |  |  |  |  |30
+29 @ 12           |  |  |  |  |  |  |  |  |  |  |  |29
+23 @  9           |  |  |  |  |  |  |  |  |23
+22 @  9           |  |  |  |  |  |  |  |  |22
+10 @  5           |  |  |  |  |10
+ 8 @  4           |  |  |  |8 
+ 5 @  2           |  |5 
+ 2 @  1           |2 
+ 1 @  0         1 
+ 0 @  0         0 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>bisect</code> has is really <code>bisect_right</code>, which inserts the same element always to the right of the corresponing element in the list. It also has a sister function <code>bisect_left</code> which corresponds to inserting the same item to left of the matching item in the list</p>
+<p><code>bisect</code> has another function called <code>bisect.insort(seq, item)</code> which inserts an the item into seq, this is much faster than using <code>insert()</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="n">haystack</span> <span class="o">=</span> <span class="n">HAYSTACK</span><span class="p">[:]</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">haystack</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+<span class="n">haystack</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1, 4, 5, 6, 8, 12, 15, 19, 20, 21, 23, 23, 26, 29, 30]
+CPU times: user 819 µs, sys: 168 µs, total: 987 µs
+Wall time: 823 µs
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="n">haystack</span> <span class="o">=</span> <span class="n">HAYSTACK</span><span class="p">[:]</span>
+<span class="n">bisect</span><span class="o">.</span><span class="n">insort</span><span class="p">(</span><span class="n">haystack</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">haystack</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1, 4, 5, 6, 8, 12, 15, 19, 20, 21, 23, 23, 26, 29, 30]
+CPU times: user 302 µs, sys: 0 ns, total: 302 µs
+Wall time: 174 µs
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sequences-other-than-lists">
+<a class="anchor" href="#Sequences-other-than-lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sequences other than lists<a class="anchor-link" href="#Sequences-other-than-lists"> </a>
+</h3>
+<ul>
+<li>
+<p>if you need large list of floating points it's better to user arrays since the only store the numerical value and not float object, just like how C/C++ implements.</p>
+</li>
+<li>
+<p>if you need FIFO, LIFO operation consider the deque</p>
+</li>
+<li>
+<p>if you do frequent membership checks, a set is much more efficient.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Arrays">
+<a class="anchor" href="#Arrays" aria-hidden="true"><span class="octicon octicon-link"></span></a>Arrays<a class="anchor-link" href="#Arrays"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="n">floats</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="p">(</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">floats</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6803039375481935</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'floats.bin'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span>
+<span class="n">floats</span><span class="o">.</span><span class="n">tofile</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>    <span class="c1"># size = 77M</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">float2</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'d'</span><span class="p">)</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'floats.bin'</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span>
+<span class="n">float2</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">float2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6803039375481935</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">float2</span> <span class="o">==</span> <span class="n">floats</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HAYSTACK</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 4, 5, 6, 8, 12, 15, 20, 21, 23, 23, 26, 29, 30]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">HAYSTACK</span><span class="p">))</span>
+<span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array('i', [30, 29, 26, 23, 23, 21, 20, 15, 12, 8, 6, 5, 4, 1])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">typecode</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array('i', [1, 4, 5, 6, 8, 12, 15, 20, 21, 23, 23, 26, 29, 30])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Memory-Views">
+<a class="anchor" href="#Memory-Views" aria-hidden="true"><span class="octicon octicon-link"></span></a>Memory Views<a class="anchor-link" href="#Memory-Views"> </a>
+</h4>
+<blockquote>
+<p>A memoryview is essentially a generalized NumPy array structure in Python itself
+(without the math). It allows you to share memory between data-structures (things like
+PIL images, SQLlite databases, NumPy arrays, etc.) without first copying. This is very
+important for large data sets
+        </p>
+<div style="text-align:right"> Travis Oliphant, lead author of Num-py  </div>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">array</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">memv</span> <span class="o">=</span> <span class="nb">memoryview</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">memv</span><span class="p">)</span>
+
+<span class="c1"># apparently there is some issue with python3 hence not used</span>
+<span class="c1"># ref - https://stackoverflow.com/questions/4877866/why-is-it-not-possible-to-get-a-py-buffer-from-an-array-object</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-5cf756d205e6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> numbers <span class="ansi-blue-fg">=</span> array<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'h'</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>memv <span class="ansi-blue-fg">=</span> memoryview<span class="ansi-blue-fg">(</span>numbers<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> len<span class="ansi-blue-fg">(</span>memv<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># apparently there is some issue with python3 hence not used</span>
+
+<span class="ansi-red-fg">TypeError</span>: cannot make memory view because object does not have the buffer interface</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Deque-and-other-Queues">
+<a class="anchor" href="#Deque-and-other-Queues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deque and other Queues<a class="anchor-link" href="#Deque-and-other-Queues"> </a>
+</h3>
+<p>lists are great but constrained for appending or poping from the left, deque on the other hand is optimized for operating from both sides (but is poor for operations in the middle)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">dq</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([7, 8, 9, 0, 1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([-1, 4, 5, 6, 7, 8, 9, 0, 1, 2])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">])</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([9, 0, 1, 2, 11, 12, 13, 11, 12, 13])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">maxlen</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">extendleft</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([40, 30, 20, 10, 9, 0, 1, 2, 11, 12])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Other-implementations-of-Queues">
+<a class="anchor" href="#Other-implementations-of-Queues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other implementations of Queues<a class="anchor-link" href="#Other-implementations-of-Queues"> </a>
+</h4>
+<p><strong>queue</strong>: 
+This provides the synchronized (i.e., thread-safe) classes <code>Queue</code> , <code>LifoQueue</code> , and <code>PriorityQueue</code> . These are used for safe communication between threads. All three classes can be bounded by providing a <code>maxsize</code> argument greater than 0 to the constructor. However, they don’t discard items to make room as deque does. In‐stead, when the queue is full the insertion of a new item blocks—i.e., it waits until some other thread makes room by taking an item from the queue, which is useful to throttle the number of live threads.</p>
+<p><strong>multiprocessing</strong>
+Implements its own bounded <code>Queue</code> , very similar to queue.Queue but designed for interprocess communication. A specialized <code>multiprocessing.JoinableQueue</code> is also available for easier task management.</p>
+<p><strong>asyncio</strong>
+Newly added to Python 3.4, asyncio provides <code>Queue</code> , <code>LifoQueue</code> , <code>PriorityQueue</code>, and <code>JoinableQueue</code> with APIs inspired by the classes contained in the <code>queue</code> and <code>multiprocessing</code> modules, but adapted for managing tasks in asynchronous pro‐gramming.</p>
+<p><strong>heapq</strong>
+In contrast to the previous three modules, <code>heapq</code> does not implement a <code>queue</code> class, but provides functions like <code>heappush</code> and <code>heappop</code> that let you use a mutable sequence as a heap queue or priority queue.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div>
+<a class="u-url" href="/fluent-python/2021/07/19/ch2-array-of-sequences.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fluent-python/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fluent-python/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fluent-python/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My notes from the best book for intermediate python.</p>
+      </div>
+    </div>
+
+    <div class="social-links">
+<ul class="social-media-list">
+<li><a rel="me" href="https://github.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#github"></use></svg></a></li>
+<li><a rel="me" href="https://twitter.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#twitter"></use></svg></a></li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
