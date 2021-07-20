@@ -86,7 +86,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      11 min read
+      12 min read
     
 </span></p>
 
@@ -124,7 +124,12 @@ window.onload = wrap_img;
 <a href="#Tuples-are-not-just-Immutable-Lists">Tuples are not just Immutable Lists </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Tuples-as-Records">Tuples as Records </a></li>
-<li class="toc-entry toc-h3"><a href="#Slicing">Slicing </a></li>
+<li class="toc-entry toc-h3"><a href="#Named-Tuples">Named Tuples </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#Slicing">Slicing </a>
+<ul>
 <li class="toc-entry toc-h3"><a href="#Sort-and-Sorted">Sort and Sorted </a></li>
 <li class="toc-entry toc-h3"><a href="#bisect-module">bisect module </a></li>
 <li class="toc-entry toc-h3">
@@ -468,19 +473,50 @@ window.onload = wrap_img;
 <h3 id="Tuples-as-Records">
 <a class="anchor" href="#Tuples-as-Records" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tuples as Records<a class="anchor-link" href="#Tuples-as-Records"> </a>
 </h3>
-<p>tuples hold record, each item in the tuple holds data for one field and the position of the item gives its meaning.</p>
+<p>tuples hold record, each item in the tuple holds data for one field and the position of the item gives its meaning. They work as good record because we can easily upack them in order. 
+using * to grab excess items</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>using * to grab excess items</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traveler_ids</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'USA'</span><span class="p">,</span> <span class="s1">'31195855'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'BRA'</span><span class="p">,</span> <span class="s1">'CE342567'</span><span class="p">),</span> 
+                <span class="p">(</span><span class="s1">'ESP'</span><span class="p">,</span> <span class="s1">'XDA205856'</span><span class="p">)]</span>
+
+
+<span class="k">for</span> <span class="n">country</span><span class="p">,</span> <span class="n">passport</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">traveler_ids</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">passport</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>BRA/CE342567
+ESP/XDA205856
+USA/31195855
+</pre>
+</div>
+</div>
 
 </div>
 </div>
+
 </div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -502,12 +538,9 @@ window.onload = wrap_img;
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">"&lt;ipython-input-11-a436b2c917d4&gt;"</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
-<span class="ansi-red-fg">    one, two, *rest = range(1, 10)</span>
-              ^
-<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 2
+[3, 4, 5, 6, 7, 8, 9]
 </pre>
 </div>
 </div>
@@ -521,11 +554,115 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Names tuples</em></strong> function is a factory that produces a subclass of tuples that attaches field names and class names to it.</p>
+<p>Tuple unpacking does work with any interable object, you only have to ensure that when unpacking you map each individual item to 1 corresponding variable (except when the variable has a * operator like in the above example</p>
+<p>nested tuples are also handled just like you would expect</p>
 
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metro_areas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">'Tokyo'</span><span class="p">,</span> <span class="s1">'JP'</span><span class="p">,</span> <span class="mf">36.933</span><span class="p">,</span> <span class="p">(</span><span class="mf">35.689722</span><span class="p">,</span> <span class="mf">139.691667</span><span class="p">)),</span> <span class="c1">#</span>
+    <span class="p">(</span><span class="s1">'Delhi NCR'</span><span class="p">,</span> <span class="s1">'IN'</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">'Mexico City'</span><span class="p">,</span> <span class="s1">'MX'</span><span class="p">,</span> <span class="mf">20.142</span><span class="p">,</span> <span class="p">(</span><span class="mf">19.433333</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.133333</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">'New York-Newark'</span><span class="p">,</span> <span class="s1">'US'</span><span class="p">,</span> <span class="mf">20.104</span><span class="p">,</span> <span class="p">(</span><span class="mf">40.808611</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.020386</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">'Sao Paulo'</span><span class="p">,</span> <span class="s1">'BR'</span><span class="p">,</span> <span class="mf">19.649</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">23.547778</span><span class="p">,</span> <span class="o">-</span><span class="mf">46.635833</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{:15}</span><span class="s1"> | </span><span class="si">{:^9}</span><span class="s1"> | </span><span class="si">{:^9}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'lat.'</span> <span class="p">,</span> <span class="s1">'long.'</span><span class="p">))</span>
+<span class="n">fmt</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{:15}</span><span class="s1"> | </span><span class="si">{:9.4f}</span><span class="s1"> | </span><span class="si">{:9.4f}</span><span class="s1">'</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">long</span><span class="p">)</span> <span class="ow">in</span> <span class="n">metro_areas</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">long</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">long</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                |   lat.    |   long.  
+Mexico City     |   19.4333 |  -99.1333
+New York-Newark |   40.8086 |  -74.0204
+Sao Paulo       |  -23.5478 |  -46.6358
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Named-Tuples">
+<a class="anchor" href="#Named-Tuples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Named Tuples<a class="anchor-link" href="#Named-Tuples"> </a>
+</h3>
+<p>Names tuples function is a factory that produces a subclass of tuples that attaches field names and class names to it. They also use the same amt of memory as a tuple but less that an object would because it doesn't have a <code>__dict__</code>. This makes it ideal for used where you want an object to contain all the data that is associated with it but doesn't have function of its own</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>namedtuple( &lt;class name&gt; , &lt; field names: Optional(iter, str)&gt; )</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">City</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'City'</span><span class="p">,</span> <span class="s1">'city state country'</span><span class="p">)</span>
+<span class="n">Kochi</span> <span class="o">=</span> <span class="n">City</span><span class="p">(</span><span class="s1">'Kochi'</span><span class="p">,</span> <span class="s1">'Kerala'</span><span class="p">,</span> <span class="s1">'India'</span><span class="p">)</span>
+<span class="n">Kochi</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>City(city='Kochi', state='Kerala', country='India')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -601,7 +738,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>NamedTuple has a few attributes in addition to the ones in tuple. they are <em>_fields</em>, <em>_make(iterable)</em>, <em>_asdict()</em></p>
+<p>NamedTuple has a few attributes in addition to the ones in tuple. the most useful ones are <code>_fields, _make(iterable), _asdict()</code></p>
 
 </div>
 </div>
@@ -613,11 +750,12 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span> <span class="c1"># gets the field names</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tokyo</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
 <span class="n">LatLong</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'LatLong'</span><span class="p">,</span> <span class="s1">'lat long'</span><span class="p">)</span>
 <span class="n">delhi_data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Delhi NCR'</span><span class="p">,</span> <span class="s1">'IN'</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="n">LatLong</span><span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">delhi_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">delhi_data</span><span class="p">))</span> <span class="c1"># allows you to init a named tuple from a </span>
+                              <span class="c1"># iterable; City(*delhi_data) would do the same</span>
 </pre></div>
 
     </div>
@@ -631,7 +769,7 @@ window.onload = wrap_img;
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>('name', 'county', 'population', 'coordinates')
-OrderedDict([('name', 'Tokyo'), ('county', 'JP'), ('population', 36.933), ('coordinates', (35.689722, 139.691667))])
+{'name': 'Tokyo', 'county': 'JP', 'population': 36.933, 'coordinates': (35.689722, 139.691667)}
 City(name='Delhi NCR', county='IN', population=21.935, coordinates=LatLong(lat=28.613889, long=77.208889))
 </pre>
 </div>
@@ -646,9 +784,11 @@ City(name='Delhi NCR', county='IN', population=21.935, coordinates=LatLong(lat=2
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Slicing">
+<h2 id="Slicing">
 <a class="anchor" href="#Slicing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Slicing<a class="anchor-link" href="#Slicing"> </a>
-</h3>
+</h2>
+<p>This is pretty straight forward.</p>
+
 </div>
 </div>
 </div>
