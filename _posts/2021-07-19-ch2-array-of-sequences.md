@@ -312,18 +312,50 @@ layout: notebook
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Tuples-are-not-just-Immutable-Lists">Tuples are not just Immutable Lists<a class="anchor-link" href="#Tuples-are-not-just-Immutable-Lists"> </a></h2><p>Tuples are immutable lists and records with no field names</p>
-<h3 id="Tuples-as-Records">Tuples as Records<a class="anchor-link" href="#Tuples-as-Records"> </a></h3><p>tuples hold record, each item in the tuple holds data for one field and the position of the item gives its meaning.</p>
+<h3 id="Tuples-as-Records">Tuples as Records<a class="anchor-link" href="#Tuples-as-Records"> </a></h3><p>tuples hold record, each item in the tuple holds data for one field and the position of the item gives its meaning. They work as good record because we can easily upack them in order. 
+using * to grab excess items</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>using * to grab excess items</p>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traveler_ids</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="s1">&#39;31195855&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;BRA&#39;</span><span class="p">,</span> <span class="s1">&#39;CE342567&#39;</span><span class="p">),</span> 
+                <span class="p">(</span><span class="s1">&#39;ESP&#39;</span><span class="p">,</span> <span class="s1">&#39;XDA205856&#39;</span><span class="p">)]</span>
+
+
+<span class="k">for</span> <span class="n">country</span><span class="p">,</span> <span class="n">passport</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">traveler_ids</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">passport</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>BRA/CE342567
+ESP/XDA205856
+USA/31195855
+</pre>
+</div>
+</div>
 
 </div>
 </div>
+
 </div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -345,12 +377,9 @@ layout: notebook
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-11-a436b2c917d4&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
-<span class="ansi-red-fg">    one, two, *rest = range(1, 10)</span>
-              ^
-<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 2
+[3, 4, 5, 6, 7, 8, 9]
 </pre>
 </div>
 </div>
@@ -363,11 +392,110 @@ layout: notebook
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Names tuples</em></strong> function is a factory that produces a subclass of tuples that attaches field names and class names to it.</p>
+<p>Tuple unpacking does work with any interable object, you only have to ensure that when unpacking you map each individual item to 1 corresponding variable (except when the variable has a * operator like in the above example</p>
+<p>nested tuples are also handled just like you would expect</p>
 
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metro_areas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;Tokyo&#39;</span><span class="p">,</span> <span class="s1">&#39;JP&#39;</span><span class="p">,</span> <span class="mf">36.933</span><span class="p">,</span> <span class="p">(</span><span class="mf">35.689722</span><span class="p">,</span> <span class="mf">139.691667</span><span class="p">)),</span> <span class="c1">#</span>
+    <span class="p">(</span><span class="s1">&#39;Delhi NCR&#39;</span><span class="p">,</span> <span class="s1">&#39;IN&#39;</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Mexico City&#39;</span><span class="p">,</span> <span class="s1">&#39;MX&#39;</span><span class="p">,</span> <span class="mf">20.142</span><span class="p">,</span> <span class="p">(</span><span class="mf">19.433333</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.133333</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;New York-Newark&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="mf">20.104</span><span class="p">,</span> <span class="p">(</span><span class="mf">40.808611</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.020386</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Sao Paulo&#39;</span><span class="p">,</span> <span class="s1">&#39;BR&#39;</span><span class="p">,</span> <span class="mf">19.649</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">23.547778</span><span class="p">,</span> <span class="o">-</span><span class="mf">46.635833</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:15}</span><span class="s1"> | </span><span class="si">{:^9}</span><span class="s1"> | </span><span class="si">{:^9}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;lat.&#39;</span> <span class="p">,</span> <span class="s1">&#39;long.&#39;</span><span class="p">))</span>
+<span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:15}</span><span class="s1"> | </span><span class="si">{:9.4f}</span><span class="s1"> | </span><span class="si">{:9.4f}</span><span class="s1">&#39;</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">long</span><span class="p">)</span> <span class="ow">in</span> <span class="n">metro_areas</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">long</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">long</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                |   lat.    |   long.  
+Mexico City     |   19.4333 |  -99.1333
+New York-Newark |   40.8086 |  -74.0204
+Sao Paulo       |  -23.5478 |  -46.6358
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Named-Tuples">Named Tuples<a class="anchor-link" href="#Named-Tuples"> </a></h3><p>Names tuples function is a factory that produces a subclass of tuples that attaches field names and class names to it. They also use the same amt of memory as a tuple but less that an object would because it doesn't have a <code>__dict__</code>. This makes it ideal for used where you want an object to contain all the data that is associated with it but doesn't have function of its own</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>namedtuple( &lt;class name&gt; , &lt; field names: Optional(iter, str)&gt; )</code></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">City</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;city state country&#39;</span><span class="p">)</span>
+<span class="n">Kochi</span> <span class="o">=</span> <span class="n">City</span><span class="p">(</span><span class="s1">&#39;Kochi&#39;</span><span class="p">,</span> <span class="s1">&#39;Kerala&#39;</span><span class="p">,</span> <span class="s1">&#39;India&#39;</span><span class="p">)</span>
+<span class="n">Kochi</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>City(city=&#39;Kochi&#39;, state=&#39;Kerala&#39;, country=&#39;India&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -442,7 +570,7 @@ layout: notebook
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>NamedTuple has a few attributes in addition to the ones in tuple. they are <em>_fields</em>, <em>_make(iterable)</em>, <em>_asdict()</em></p>
+<p>NamedTuple has a few attributes in addition to the ones in tuple. the most useful ones are <code>_fields, _make(iterable), _asdict()</code></p>
 
 </div>
 </div>
@@ -454,11 +582,12 @@ layout: notebook
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span> <span class="c1"># gets the field names</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tokyo</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
 <span class="n">LatLong</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;LatLong&#39;</span><span class="p">,</span> <span class="s1">&#39;lat long&#39;</span><span class="p">)</span>
 <span class="n">delhi_data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Delhi NCR&#39;</span><span class="p">,</span> <span class="s1">&#39;IN&#39;</span><span class="p">,</span> <span class="mf">21.935</span><span class="p">,</span> <span class="n">LatLong</span><span class="p">(</span><span class="mf">28.613889</span><span class="p">,</span> <span class="mf">77.208889</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">delhi_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">City</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">delhi_data</span><span class="p">))</span> <span class="c1"># allows you to init a named tuple from a </span>
+                              <span class="c1"># iterable; City(*delhi_data) would do the same</span>
 </pre></div>
 
     </div>
@@ -472,7 +601,7 @@ layout: notebook
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(&#39;name&#39;, &#39;county&#39;, &#39;population&#39;, &#39;coordinates&#39;)
-OrderedDict([(&#39;name&#39;, &#39;Tokyo&#39;), (&#39;county&#39;, &#39;JP&#39;), (&#39;population&#39;, 36.933), (&#39;coordinates&#39;, (35.689722, 139.691667))])
+{&#39;name&#39;: &#39;Tokyo&#39;, &#39;county&#39;: &#39;JP&#39;, &#39;population&#39;: 36.933, &#39;coordinates&#39;: (35.689722, 139.691667)}
 City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinates=LatLong(lat=28.613889, long=77.208889))
 </pre>
 </div>
@@ -486,7 +615,8 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Slicing">Slicing<a class="anchor-link" href="#Slicing"> </a></h3>
+<h2 id="Slicing">Slicing<a class="anchor-link" href="#Slicing"> </a></h2><p>This is pretty straight forward.</p>
+
 </div>
 </div>
 </div>
