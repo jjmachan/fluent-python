@@ -615,7 +615,9 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Slicing">Slicing<a class="anchor-link" href="#Slicing"> </a></h2><p>This is pretty straight forward.</p>
+<h2 id="Slicing">Slicing<a class="anchor-link" href="#Slicing"> </a></h2><p>This is pretty straight forward but none the less very powerful. Lets see all their advanced usecases here.</p>
+<h3 id="Why-Slices-and-Range-exclude-the-last-item?">Why Slices and Range exclude the last item?<a class="anchor-link" href="#Why-Slices-and-Range-exclude-the-last-item?"> </a></h3><p>This is because that way its more intutive for zero-based indexing used in python and c.</p>
+<h3 id="Slice-Objects">Slice Objects<a class="anchor-link" href="#Slice-Objects"> </a></h3><p>How slice is works</p>
 
 </div>
 </div>
@@ -628,7 +630,7 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">strs</span> <span class="o">=</span> <span class="s1">&#39;bicycle&#39;</span>
-<span class="n">strs</span><span class="p">[::</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">strs</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">strs</span><span class="p">[::</span><span class="mi">3</span><span class="p">],</span> <span class="n">strs</span><span class="p">[::</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -643,40 +645,7 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;eccb&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">strs</span><span class="p">[::</span><span class="mi">3</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;bye&#39;</pre>
+<pre>(&#39;elcycib&#39;, &#39;bye&#39;, &#39;eccb&#39;)</pre>
 </div>
 
 </div>
@@ -689,8 +658,51 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Internally [a:b:c] creates a slice object slice(a, b, c) which is invoked by the <code>obj.__getitem__(slice(start, stop, step))</code></p>
+<p>Internally [a:b:c] creates a slice object slice(a, b, c) which is invoked by the <code>obj.__getitem__(slice(start, stop, step))</code>. This is handy since you can now get <code>slice</code> working your own objects.</p>
 <p>You can also assign to slices.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reverse</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">strs</span><span class="p">[</span><span class="n">reverse</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;elcycib&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Multidimensional-Slicing-and-Ellipsis">Multidimensional Slicing and Ellipsis<a class="anchor-link" href="#Multidimensional-Slicing-and-Ellipsis"> </a></h3><p>the <code>[]</code> operator can also take multiple indexes or slices seperated by commas. This is used, for instance, in the external NumPy package, where items of a two-dimensional numpy.ndarray can be fetched using the syntax a[i, j] or 2-d slice as a[m:n, k:l]</p>
+<p>The ellipsis (3 full stops <code>...</code>) is valid token by the python parser. In Numpy it is used as a shortcut when slicing arrays of many dimensions for example if x is a 4-d array x[i, ...] is a shortcut for x[i, :, :, :,]</p>
+<h3 id="Assigning-to-Slices">Assigning to Slices<a class="anchor-link" href="#Assigning-to-Slices"> </a></h3><p>Mutable sequnces can be grafted or modified in place using the slice notation. You can also <code>del</code> slices.</p>
 
 </div>
 </div>
@@ -818,9 +830,9 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-7-da8b10461280&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">TypeError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-10-da8b10461280&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>l<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">100</span>
 
 <span class="ansi-red-fg">TypeError</span>: can only assign an iterable</pre>
@@ -867,6 +879,13 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-+-and-*-with-Seqences">Using + and * with Seqences<a class="anchor-link" href="#Using-+-and-*-with-Seqences"> </a></h3><p>concatenation is a common operation with any sequence but there are some subtle details as to how they work. When using the */+ both sequences have to be of the same time and none of them is modified, instead a new on is created</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -933,6 +952,13 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Building-Lists-of-Lists">Building Lists of Lists<a class="anchor-link" href="#Building-Lists-of-Lists"> </a></h3><p>now this can bite you when you don't expect it to. Sometimes you want to init a new list with certain number of nested lists, the best way to do this is with list comprehension.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1038,8 +1064,19 @@ City(name=&#39;Delhi NCR&#39;, county=&#39;IN&#39;, population=21.935, coordinat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here the outer list is made up of refferences of the inner list</p>
+<p>Here the outer list is made up of refferences of the inner list. Here the issue is that the above code acts similar to this</p>
 
+<pre><code>row = ['_'] * 3
+board = []
+for i in range(3):
+    board.append(row)</code></pre>
+<p>The same row gets appended 3 times. On the other hand using list comprehension is similar to this code</p>
+
+<pre><code>board = []
+for i in range(3):
+    row = ['_'] * 3
+    board.append(row)</code></pre>
+<h3 id="Augmented-Assignment-with-Sequences">Augmented Assignment with Sequences<a class="anchor-link" href="#Augmented-Assignment-with-Sequences"> </a></h3>
 </div>
 </div>
 </div>
