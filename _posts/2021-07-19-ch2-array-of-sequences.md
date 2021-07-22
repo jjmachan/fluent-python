@@ -1076,13 +1076,56 @@ for i in range(3):
 for i in range(3):
     row = ['_'] * 3
     board.append(row)</code></pre>
-<h3 id="Augmented-Assignment-with-Sequences">Augmented Assignment with Sequences<a class="anchor-link" href="#Augmented-Assignment-with-Sequences"> </a></h3>
+<h3 id="Augmented-Assignment-with-Sequences">Augmented Assignment with Sequences<a class="anchor-link" href="#Augmented-Assignment-with-Sequences"> </a></h3><p>Using operators like *= += behaves very differently depending on the first operand. The special method that works is <code>__iadd__</code>(inplace addition). If it is not implemented, pythons falls back to <code>__add__</code>. If <code>__iadd__</code> is present and the sequence is mutable then the operation happens in place. If either of the conditions is false then pythons calls <code>__add__</code> and assigns the result to the object.</p>
+
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+<span class="n">l</span> <span class="o">*=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">*=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1, 2, 3] 140649174697408
+[1, 2, 3, 1, 2, 3] 140649174697408
+(1, 2, 3) 140649174633216
+(1, 2, 3, 1, 2, 3) 140649217792800
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sort-and-Sorted">Sort and Sorted<a class="anchor-link" href="#Sort-and-Sorted"> </a></h3><p><code>list.sort()</code> sorts the list in place and returns a None object to signal this. Infact this is a common practice in Python standard lib to return None from functions that operate on objects in place.</p>
+<h2 id="Sort-and-Sorted">Sort and Sorted<a class="anchor-link" href="#Sort-and-Sorted"> </a></h2><p><code>list.sort()</code> sorts the list in place and returns a None object to signal this. Infact this is a common practice in Python standard lib to return None from functions that operate on objects in place.</p>
 <p>The build-in function <code>sorted()</code> on the other hand creates a new array and returns it.</p>
 <p>Both of them take 2 arguments</p>
 <ol>
@@ -1212,7 +1255,8 @@ for i in range(3):
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="bisect-module">bisect module<a class="anchor-link" href="#bisect-module"> </a></h3><p>bisect finds the insert point for an item in a list and returns the index, then we use <code>list.insert(index, item)</code> to add the item to the corresponding index.</p>
+<h2 id="Managing-Ordered-Sequences-with-bisect">Managing Ordered Sequences with bisect<a class="anchor-link" href="#Managing-Ordered-Sequences-with-bisect"> </a></h2><p>bisect finds the insert point for an item in a list and returns the index, then we use <code>list.insert(index, item)</code> to add the item to the corresponding index. the bisect module also has an efficient implementation of binary search which can be used.</p>
+<p><code>bisect</code> offers 2 functions - <code>bisect</code> and <code>insort</code></p>
 
 </div>
 </div>
