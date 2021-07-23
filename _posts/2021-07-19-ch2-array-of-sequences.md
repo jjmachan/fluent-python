@@ -1274,7 +1274,7 @@ for i in range(3):
 <span class="n">HAYSTACK</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
 <span class="n">NEEDLES</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
 
-<span class="n">ROW_FMT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0:2d}</span><span class="s1"> @ </span><span class="si">{1:2d}</span><span class="s1">         </span><span class="si">{2}{0:&lt;2d}</span><span class="s1">&#39;</span>
+<span class="n">ROW_FMT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0:2d}</span><span class="s1"> @ </span><span class="si">{1:2d}</span><span class="s1">    </span><span class="si">{2}{0:&lt;2d}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">demo</span><span class="p">(</span><span class="n">bisect_fn</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">needle</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">NEEDLES</span><span class="p">):</span>
@@ -1320,19 +1320,19 @@ for i in range(3):
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;DEMO: &#39;, &#39;bisect&#39;)
-(&#39;haystack -&gt;&#39;, &#39; 1  4  5  6  8 12 15 20 21 23 23 26 29 30&#39;)
-31 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |31
-30 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |30
-29 @ 13           |  |  |  |  |  |  |  |  |  |  |  |  |29
-23 @ 11           |  |  |  |  |  |  |  |  |  |  |23
-22 @  9           |  |  |  |  |  |  |  |  |22
-10 @  5           |  |  |  |  |10
- 8 @  5           |  |  |  |  |8 
- 5 @  3           |  |  |5 
- 2 @  1           |2 
- 1 @  1           |1 
- 0 @  0         0 
+<pre>DEMO:  bisect_right
+haystack -&gt;  1  4  5  6  8 12 15 20 21 23 23 26 29 30
+31 @ 14      |  |  |  |  |  |  |  |  |  |  |  |  |  |31
+30 @ 14      |  |  |  |  |  |  |  |  |  |  |  |  |  |30
+29 @ 13      |  |  |  |  |  |  |  |  |  |  |  |  |29
+23 @ 11      |  |  |  |  |  |  |  |  |  |  |23
+22 @  9      |  |  |  |  |  |  |  |  |22
+10 @  5      |  |  |  |  |10
+ 8 @  5      |  |  |  |  |8 
+ 5 @  3      |  |  |5 
+ 2 @  1      |2 
+ 1 @  1      |1 
+ 0 @  0    0 
 </pre>
 </div>
 </div>
@@ -1363,19 +1363,19 @@ for i in range(3):
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;DEMO: &#39;, &#39;bisect_left&#39;)
-(&#39;haystack -&gt;&#39;, &#39; 1  4  5  6  8 12 15 20 21 23 23 26 29 30&#39;)
-31 @ 14           |  |  |  |  |  |  |  |  |  |  |  |  |  |31
-30 @ 13           |  |  |  |  |  |  |  |  |  |  |  |  |30
-29 @ 12           |  |  |  |  |  |  |  |  |  |  |  |29
-23 @  9           |  |  |  |  |  |  |  |  |23
-22 @  9           |  |  |  |  |  |  |  |  |22
-10 @  5           |  |  |  |  |10
- 8 @  4           |  |  |  |8 
- 5 @  2           |  |5 
- 2 @  1           |2 
- 1 @  0         1 
- 0 @  0         0 
+<pre>DEMO:  bisect_left
+haystack -&gt;  1  4  5  6  8 12 15 20 21 23 23 26 29 30
+31 @ 14      |  |  |  |  |  |  |  |  |  |  |  |  |  |31
+30 @ 13      |  |  |  |  |  |  |  |  |  |  |  |  |30
+29 @ 12      |  |  |  |  |  |  |  |  |  |  |  |29
+23 @  9      |  |  |  |  |  |  |  |  |23
+22 @  9      |  |  |  |  |  |  |  |  |22
+10 @  5      |  |  |  |  |10
+ 8 @  4      |  |  |  |8 
+ 5 @  2      |  |5 
+ 2 @  1      |2 
+ 1 @  0    1 
+ 0 @  0    0 
 </pre>
 </div>
 </div>
@@ -1419,8 +1419,8 @@ for i in range(3):
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[1, 4, 5, 6, 8, 12, 15, 19, 20, 21, 23, 23, 26, 29, 30]
-CPU times: user 819 µs, sys: 168 µs, total: 987 µs
-Wall time: 823 µs
+CPU times: user 2.41 ms, sys: 0 ns, total: 2.41 ms
+Wall time: 1.51 ms
 </pre>
 </div>
 </div>
@@ -1455,8 +1455,54 @@ Wall time: 823 µs
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[1, 4, 5, 6, 8, 12, 15, 19, 20, 21, 23, 23, 26, 29, 30]
-CPU times: user 302 µs, sys: 0 ns, total: 302 µs
-Wall time: 174 µs
+CPU times: user 161 µs, sys: 30 µs, total: 191 µs
+Wall time: 198 µs
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">bisect</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">my_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIZE</span><span class="p">):</span>
+    <span class="n">new_item</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="n">SIZE</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">bisect</span><span class="o">.</span><span class="n">insort</span><span class="p">(</span><span class="n">my_list</span><span class="p">,</span> <span class="n">new_item</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%2d</span><span class="s1"> -&gt;&#39;</span><span class="o">%</span><span class="k">new_item</span>, my_list)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> 5 -&gt; [5]
+ 8 -&gt; [5, 8]
+ 3 -&gt; [3, 5, 8]
+ 6 -&gt; [3, 5, 6, 8]
+13 -&gt; [3, 5, 6, 8, 13]
+ 0 -&gt; [0, 3, 5, 6, 8, 13]
+ 9 -&gt; [0, 3, 5, 6, 8, 9, 13]
 </pre>
 </div>
 </div>
@@ -1469,12 +1515,13 @@ Wall time: 174 µs
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sequences-other-than-lists">Sequences other than lists<a class="anchor-link" href="#Sequences-other-than-lists"> </a></h3><ul>
-<li><p>if you need large list of floating points it's better to user arrays since the only store the numerical value and not float object, just like how C/C++ implements.</p>
+<h2 id="When-a-List-is-Not-all-the-Answer">When a List is Not all the Answer<a class="anchor-link" href="#When-a-List-is-Not-all-the-Answer"> </a></h2><p>when we are starting out we tend to overuse lists for everything. But there are times when other sequence objects make more sense. Let explore some of them.</p>
+<ul>
+<li><p>if you need large list of floating points it's better to user <code>arrays</code> since the only store the numerical value and not float object, just like how C/C++ implements.</p>
 </li>
-<li><p>if you need FIFO, LIFO operation consider the deque</p>
+<li><p>if you need FIFO, LIFO operation consider the <code>deque</code></p>
 </li>
-<li><p>if you do frequent membership checks, a set is much more efficient.</p>
+<li><p>if you do frequent membership checks, a <code>set</code> is much more efficient (note they are not a sequence since they are not ordered).</p>
 </li>
 </ul>
 
@@ -1483,7 +1530,8 @@ Wall time: 174 µs
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Arrays">Arrays<a class="anchor-link" href="#Arrays"> </a></h4>
+<h3 id="Arrays">Arrays<a class="anchor-link" href="#Arrays"> </a></h3><p>Array can be used to store same type of numeraical data and are as efficient as C-arrays. You can also provide a typecode (a letter) to determine the underlying C type used.</p>
+
 </div>
 </div>
 </div>
@@ -1496,6 +1544,8 @@ Wall time: 174 µs
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+
+<span class="c1"># create a array to hold decimal float</span>
 <span class="n">floats</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">)))</span>
 </pre></div>
 
@@ -1528,7 +1578,7 @@ Wall time: 174 µs
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.6803039375481935</pre>
+<pre>0.19034769013593422</pre>
 </div>
 
 </div>
@@ -1584,7 +1634,7 @@ Wall time: 174 µs
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.6803039375481935</pre>
+<pre>0.19034769013593422</pre>
 </div>
 
 </div>
@@ -1628,6 +1678,13 @@ Wall time: 174 µs
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we are creating a new int array using the old HAYSTACK</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1695,6 +1752,13 @@ Wall time: 174 µs
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Array doesn't have a built-in sort mechanism, you can create a new sorted array easily though.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1729,9 +1793,42 @@ Wall time: 174 µs
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">bisect</span><span class="o">.</span><span class="n">insort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(5, None, array(&#39;i&#39;, [1, 4, 5, 6, 8, 8, 12, 15, 20, 21, 23, 23, 26, 29, 30]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Memory-Views">Memory Views<a class="anchor-link" href="#Memory-Views"> </a></h4><blockquote><p>A memoryview is essentially a generalized NumPy array structure in Python itself
+<h3 id="Memory-Views">Memory Views<a class="anchor-link" href="#Memory-Views"> </a></h3><blockquote><p>A memoryview is essentially a generalized NumPy array structure in Python itself
 (without the math). It allows you to share memory between data-structures (things like
 PIL images, SQLlite databases, NumPy arrays, etc.) without first copying. This is very
 important for large data sets
