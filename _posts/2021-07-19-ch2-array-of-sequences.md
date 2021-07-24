@@ -1832,7 +1832,8 @@ Wall time: 198 µs
 (without the math). It allows you to share memory between data-structures (things like
 PIL images, SQLlite databases, NumPy arrays, etc.) without first copying. This is very
 important for large data sets
-        <div style="text-align:right"> Travis Oliphant, lead author of Num-py  </div></p>
+        <div style="text-align:right"> Travis Oliphant, lead author of Num-py  </div>
+<code>memoryview</code> has a <code>case</code> method that returns yet another <code>memoryview</code> object which is sharing the same memory.</p>
 </blockquote>
 
 </div>
@@ -1879,19 +1880,56 @@ important for large data sets
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-5cf756d205e6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> numbers <span class="ansi-blue-fg">=</span> array<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;h&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>memv <span class="ansi-blue-fg">=</span> memoryview<span class="ansi-blue-fg">(</span>numbers<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> len<span class="ansi-blue-fg">(</span>memv<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> 
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># apparently there is some issue with python3 hence not used</span>
 
-<span class="ansi-red-fg">TypeError</span>: cannot make memory view because object does not have the buffer interface</pre>
+
+<div class="output_text output_subarea output_execute_result">
+<pre>5</pre>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">memv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">memv_oct</span> <span class="o">=</span> <span class="n">memv</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">memv_oct</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">memv_oct</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">numbers</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([254, 255, 255, 255, 0, 0, 1, 0, 2, 0], 0, array(&#39;h&#39;, [-2, -1, 0, 1, 2]))</pre>
+</div>
+
 </div>
 
 </div>
@@ -1902,7 +1940,15 @@ important for large data sets
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Deque-and-other-Queues">Deque and other Queues<a class="anchor-link" href="#Deque-and-other-Queues"> </a></h3><p>lists are great but constrained for appending or poping from the left, deque on the other hand is optimized for operating from both sides (but is poor for operations in the middle)</p>
+<h3 id="Numpy-ans-SciPy">Numpy ans SciPy<a class="anchor-link" href="#Numpy-ans-SciPy"> </a></h3><p>Now if your doing advanced array and matrix operation <code>numpy</code> and <code>scipy</code> are your gotos. These libs are the reason by python is so popular in the scientific communities. The key point of these libraries was that they were fast and reliable because it leverages the widely used C and Fortran code base.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Deque-and-other-Queues">Deque and other Queues<a class="anchor-link" href="#Deque-and-other-Queues"> </a></h3><p>lists are great but constrained for appending or poping from the left, deque on the other hand is optimized for operating from both sides (but is poor for operations in the middle). We use the Queue data structure for a wide range of algos and hence we have an optimised implementation of that in python.</p>
+<p><code>collections.deque</code> is a thread-safe double-ended queue designed for fast insertion and deletion from both ends. They can also be bounded to a fixed length so if you add any new elements after that, the data will be discarded from the top (first entered data point first).</p>
 
 </div>
 </div>
@@ -1983,6 +2029,40 @@ important for large data sets
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dq</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>deque([8, 9, 0, 1, 2, 3, 4, 5, 6, 2])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dq</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">dq</span>
 </pre></div>
@@ -1999,7 +2079,7 @@ important for large data sets
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>deque([-1, 4, 5, 6, 7, 8, 9, 0, 1, 2])</pre>
+<pre>deque([-1, 8, 9, 0, 1, 2, 3, 4, 5, 6])</pre>
 </div>
 
 </div>
@@ -2033,7 +2113,7 @@ important for large data sets
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>deque([9, 0, 1, 2, 11, 12, 13, 11, 12, 13])</pre>
+<pre>deque([0, 1, 2, 3, 4, 5, 6, 11, 12, 13])</pre>
 </div>
 
 </div>
@@ -2100,7 +2180,7 @@ important for large data sets
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>deque([40, 30, 20, 10, 9, 0, 1, 2, 11, 12])</pre>
+<pre>deque([40, 30, 20, 10, 0, 1, 2, 3, 4, 5])</pre>
 </div>
 
 </div>
@@ -2113,7 +2193,15 @@ important for large data sets
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Other-implementations-of-Queues">Other implementations of Queues<a class="anchor-link" href="#Other-implementations-of-Queues"> </a></h4><p><strong>queue</strong>: 
+<p>the <code>append()</code> and <code>popleft</code> operations are atomic, so <code>deque</code> is safe to use as a LIFO queue in multithreaded applications without the need for locks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Other implementations of Queues</strong></p>
+<p><strong>queue</strong>: 
 This provides the synchronized (i.e., thread-safe) classes <code>Queue</code> , <code>LifoQueue</code> , and <code>PriorityQueue</code> . These are used for safe communication between threads. All three classes can be bounded by providing a <code>maxsize</code> argument greater than 0 to the constructor. However, they don’t discard items to make room as deque does. In‐stead, when the queue is full the insertion of a new item blocks—i.e., it waits until some other thread makes room by taking an item from the queue, which is useful to throttle the number of live threads.</p>
 <p><strong>multiprocessing</strong>
 Implements its own bounded <code>Queue</code> , very similar to queue.Queue but designed for interprocess communication. A specialized <code>multiprocessing.JoinableQueue</code> is also available for easier task management.</p>
