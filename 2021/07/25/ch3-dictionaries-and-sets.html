@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Chapter 3: Dictionaries and Sets | Fluent-Python Notes</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Chapter 3: Dictionaries and Sets" />
+<meta name="author" content="JJmachan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Exploring the fundamental datastructure in python." />
+<meta property="og:description" content="Exploring the fundamental datastructure in python." />
+<link rel="canonical" href="https://jjmachan.github.io/fluent-python/2021/07/25/ch3-dictionaries-and-sets.html" />
+<meta property="og:url" content="https://jjmachan.github.io/fluent-python/2021/07/25/ch3-dictionaries-and-sets.html" />
+<meta property="og:site_name" content="Fluent-Python Notes" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-25T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://jjmachan.github.io/fluent-python/2021/07/25/ch3-dictionaries-and-sets.html","@type":"BlogPosting","headline":"Chapter 3: Dictionaries and Sets","dateModified":"2021-07-25T00:00:00-05:00","datePublished":"2021-07-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jjmachan.github.io/fluent-python/2021/07/25/ch3-dictionaries-and-sets.html"},"author":{"@type":"Person","name":"JJmachan"},"description":"Exploring the fundamental datastructure in python.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fluent-python/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jjmachan.github.io/fluent-python/feed.xml" title="Fluent-Python Notes" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176495138-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-176495138-1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/fluent-python/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fluent-python/">Fluent-Python Notes</a></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Chapter 3: Dictionaries and Sets</h1><p class="page-description">Exploring the fundamental datastructure in python.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-25T00:00:00-05:00" itemprop="datePublished">
+        Jul 25, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">JJmachan</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/jjmachan/fluent-python/tree/master/_notebooks/2021-07-25-ch3-dictionaries-and-sets.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fluent-python/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/jjmachan/fluent-python/blob/master/_notebooks/2021-07-25-ch3-dictionaries-and-sets.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/fluent-python/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Generic-Mapping-Types---Mapping-and-MutableMapping">Generic Mapping Types - Mapping and MutableMapping </a></li>
+<li class="toc-entry toc-h2"><a href="#dict-Comprehensions">dict Comprehensions </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Immutable-Mappings">Immutable Mappings </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Set-Theory">Set Theory </a></li>
+<li class="toc-entry toc-h2"><a href="#dict-and-set-under-the-Hood">dict and set under the Hood </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Hash-Tables">Hash Tables </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Practical-Consequeces-of-How-dict-Works">Practical Consequeces of How dict Works </a></li>
+<li class="toc-entry toc-h2"><a href="#Practical-Concequeces-of-how-sets-Work">Practical Concequeces of how sets Work </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-07-25-ch3-dictionaries-and-sets.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dictionaries are not just another dataset in python, they are an itergral part of the language. Hence Dicts are highly optimized, Dicts are implemented using <code>hash tables</code>. Sets are also build using hash tables and hence covered with this.</p>
+<h2 id="Generic-Mapping-Types---Mapping-and-MutableMapping">
+<a class="anchor" href="#Generic-Mapping-Types---Mapping-and-MutableMapping" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generic Mapping Types - <code>Mapping</code> and <code>MutableMapping</code><a class="anchor-link" href="#Generic-Mapping-Types---Mapping-and-MutableMapping"> </a>
+</h2>
+<p>Both of these form the base classes for dicts and sets. The <code>collection.abs</code> module provides these. For implementing specialized mappings we often extend <code>dict</code> or <code>collection.UserDict</code> instead of ABCs. The main value of ABCs is documenting and formalizing the minimal interfaces for mapping.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="n">my_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">my_dict</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>dict</code> has one requirement and that is that the keys should be hashable. What do you mean by hashable?</p>
+<blockquote>
+<p>An object is hashable if it has a hash value which never changes during its lifetime (it
+needs a <code>__hash__()</code> method), and can be compared to other objects (it needs an
+<code>__eq__()</code> method). Hashable objects which compare equal must have the same hash
+value.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">'1, 2, 3'</span><span class="p">),</span> <span class="nb">hash</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>529344067295497451 4576582733818374657 1
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+
+<span class="ansi-red-fg">TypeError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-146e8d157a5b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> print<span class="ansi-blue-fg">(</span>hash<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> hash<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'1, 2, 3'</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> hash<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>hash<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: unhashable type: 'list'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="dict-Comprehensions">
+<a class="anchor" href="#dict-Comprehensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>dict Comprehensions<a class="anchor-link" href="#dict-Comprehensions"> </a>
+</h2>
+<p>the syntax of listcomps and genexps can be used</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nums</span> <span class="o">=</span> <span class="p">{</span><span class="n">num</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)}</span>
+<span class="n">nums</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{0: '0',
+ 1: '1',
+ 2: '2',
+ 3: '3',
+ 4: '4',
+ 5: '5',
+ 6: '6',
+ 7: '7',
+ 8: '8',
+ 9: '9'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are 3 main dictionary types. <code>dict</code>, <code>defaultdict</code>, <code>orderedDict</code>.</p>
+<p>dicts have a <code>get</code> function and <code>setdefault</code> function. Use the 2 wisely. Most of the time <code>setdefault()</code> is a wise choice because using <code>get()</code> can lead to more searches.</p>
+<p>There are 2 other methods to do this.</p>
+<ol>
+<li>Use <code>defaultdict</code>
+</li>
+<li>subclass dict and add a <code>__missing__</code> method</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># takes a callable which is called when there is a key error</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>but under the hood <code>defaultdict</code> uses the <code>__missing__</code> method. This method is used to handle the missing values in any mapping object.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PinToFun</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
+    
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+        
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pins</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'0'</span><span class="p">:</span> <span class="s1">'I/O'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">:</span> <span class="s1">'LED'</span><span class="p">}</span>
+<span class="n">pins</span><span class="p">[</span><span class="s1">'0'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'I/O'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-18-bc9cb425f661&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>pins<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-red-fg">KeyError</span>: 0</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pins_improved</span> <span class="o">=</span> <span class="n">PinToFun</span><span class="p">({</span><span class="s1">'0'</span><span class="p">:</span> <span class="s1">'I/O'</span><span class="p">})</span>
+<span class="n">pins_improved</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'I/O'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pins_improved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'I/O'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Variations of Dict:</strong></p>
+<p><code>collections.OrderedDict</code>: Maintains keys in insertion order. Hence iteration is predictable.</p>
+<p><code>collections.ChainMap</code>: class is provided for quickly linking a number of mappings so they can be treated as a single unit. It is often much faster than creating a new dictionary and running multiple <code>update()</code>calls</p>
+<p><code>collections.Counter</code>: Holds the integer count of each key. Can be used to count instances of hashable objects.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
+<span class="n">pylookup</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="nb">locals</span><span class="p">(),</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">vars</span><span class="p">(</span><span class="n">builtins</span><span class="p">))</span>
+<span class="n">pylookup</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-6a68e881e10b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> collections <span class="ansi-green-fg">import</span> ChainMap
+<span class="ansi-green-intense-fg ansi-bold">      2</span> pylookup <span class="ansi-blue-fg">=</span> ChainMap<span class="ansi-blue-fg">(</span>locals<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> globals<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> vars<span class="ansi-blue-fg">(</span>builtins<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> pylookup
+
+<span class="ansi-red-fg">ImportError</span>: cannot import name ChainMap</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">ct</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">'abaaachdddrllkk'</span><span class="p">)</span>
+<span class="n">ct</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Counter({'a': 4, 'b': 1, 'c': 1, 'd': 3, 'h': 1, 'k': 2, 'l': 2, 'r': 1})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>collections.UserDict</code>: Used as base class for creating new mapping classes. The main reason we don't use <code>dict</code> as base class is that it has some implementation shortcuts that we will have to override in order to make it work.</p>
+<p>we will now modify the PinToFun class using this to show its effectiveness.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">PinToFun</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">UserDict</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
+    
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+    
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="c1">#here the data is accessed as an attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">item</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pins</span> <span class="o">=</span> <span class="n">PinToFun</span><span class="p">({</span><span class="s1">'0'</span><span class="p">:</span> <span class="s1">'I/O'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">:</span> <span class="s1">'LED'</span><span class="p">})</span>
+<span class="n">pins</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'0': 'I/O', '1': 'LED'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">0</span> <span class="ow">in</span> <span class="n">pins</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Immutable-Mappings">
+<a class="anchor" href="#Immutable-Mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Immutable Mappings<a class="anchor-link" href="#Immutable-Mappings"> </a>
+</h3>
+<p>mapping types are mutable but if you want to constrain the user from making changes, use this.</p>
+<p>Introducing <code>MappingProxy</code> from <code>types</code> module. This returns a read-only by dynamic view of the original mapping. Hence updates can be seen but no changes can be performed using the <code>mappingproxy</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">'A'</span><span class="p">}</span>
+<span class="n">d_proxy</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">d_proxy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>mappingproxy({1: 'A'})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d_proxy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'A'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d_proxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'B'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-c636e28161a2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>d_proxy<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">'B'</span>
+
+<span class="ansi-red-fg">TypeError</span>: 'mappingproxy' object does not support item assignment</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'B'</span>
+<span class="n">d_proxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'B'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Set-Theory">
+<a class="anchor" href="#Set-Theory" aria-hidden="true"><span class="octicon octicon-link"></span></a>Set Theory<a class="anchor-link" href="#Set-Theory"> </a>
+</h2>
+<p>An underused concept in python. The basic use is removing duplicate elements. Set elements must be hashable.</p>
+<p>In addition to that sets also support basic set operations.</p>
+<ul>
+<li>
+<code>a | b</code> - Union</li>
+<li>
+<code>a &amp; b</code> - Intersection</li>
+<li>
+<code>a - b</code> - Difference</li>
+</ul>
+<p>Sets have extremely fast membership functions. If used effectively it can make you code faster and easier to read.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'spam'</span><span class="p">,</span> <span class="s1">'eggs'</span><span class="p">,</span> <span class="s1">'spam'</span><span class="p">,</span> <span class="s1">'spam'</span><span class="p">,</span> <span class="s1">'spam'</span><span class="p">]</span>
+<span class="n">l</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['spam', 'eggs', 'spam', 'spam', 'spam']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'eggs', 'spam'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">}</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>set</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{1}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span>
+<span class="c1"># set() is used to denote empty set.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>set()</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span>
+<span class="c1"># this is faster and cleaner</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">s</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 6 µs, sys: 1 µs, total: 7 µs
+Wall time: 13.8 µs
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{1, 2, 3}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">s</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 5 µs, sys: 0 ns, total: 5 µs
+Wall time: 10.3 µs
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{1, 2, 3}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">dis</span> <span class="kn">import</span> <span class="n">dis</span>
+<span class="n">dis</span><span class="p">(</span><span class="s1">'</span><span class="si">{1}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  1           0 LOAD_CONST               0 (1)
+              2 BUILD_SET                1
+              4 RETURN_VALUE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dis</span><span class="p">(</span><span class="s1">'set([1])'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  1           0 LOAD_NAME                0 (set)
+              2 LOAD_CONST               0 (1)
+              4 BUILD_LIST               1
+              6 CALL_FUNCTION            1
+              8 RETURN_VALUE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">frozenset</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>frozenset({0, 1, 2, 3, 4, 5, 6, 7, 8, 9})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">{</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="s1">'abcdeeefghhijkkkll'</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="dict-and-set-under-the-Hood">
+<a class="anchor" href="#dict-and-set-under-the-Hood" aria-hidden="true"><span class="octicon octicon-link"></span></a>dict and set under the Hood<a class="anchor-link" href="#dict-and-set-under-the-Hood"> </a>
+</h2>
+<p>dict and set has really fast membership operations (lookup) due to the fact that they are implemented using hash tables. Comparing this with something like a list, there is a world of difference. All this is due to the hash tables.</p>
+<h3 id="Hash-Tables">
+<a class="anchor" href="#Hash-Tables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hash Tables<a class="anchor-link" href="#Hash-Tables"> </a>
+</h3>
+<p>It is implemented as a sparse array. Each cell in the array is called a <code>bucket</code>. In a dict table each bucket has 2 fields, a ref to the key and a ref to the value item.</p>
+<p>Python tries to keep 1/3 of the buckets empty. If its size increases it is copied out to a know location with larger memory. The first set in putting an element inside is to hash the item.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">hash</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-35e31e935e9e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>hash<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: unhashable type: 'list'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="nb">hash</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2528502973977326415</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>has()</code> is a build in function that calls the <code>__hash__</code> for user-defined types.</p>
+<p>If 2 objs compare equal there hash values must be equal.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">hash</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="nb">hash</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1, 1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note: There is a detailed overview of the hash table algorithms in the book. Please google for it to find it. (It is in page 89 in the book).</p>
+<h2 id="Practical-Consequeces-of-How-dict-Works">
+<a class="anchor" href="#Practical-Consequeces-of-How-dict-Works" aria-hidden="true"><span class="octicon octicon-link"></span></a>Practical Consequeces of How dict Works<a class="anchor-link" href="#Practical-Consequeces-of-How-dict-Works"> </a>
+</h2>
+<ol>
+<li>
+<p><strong>keys must be hashable objects</strong> - the object must support <code>hash()</code> funtion and <code>eq()</code> function. also if <code>a == b</code> the <code>hash(a) == hash(b)</code>. By default all user objects are hashable.</p>
+</li>
+<li>
+<p><strong>dicts have significant memory overhead</strong> - since dicts use sparese arrays they are not efficient. Note that if your using dicts in JSON style with one dict per object, a namedtuple is far more efficent alternative.</p>
+</li>
+<li>
+<p><strong>Key search is fast (very fast)</strong> - hash tables are the reason.</p>
+</li>
+<li>
+<p><strong>Key ordering depends on insertion order</strong> - Consider the case where a key collition happens.</p>
+</li>
+<li>
+<p><strong>Adding items to dict may change the order of existing keys</strong> - this is why modifing the contents of a dict while iterating through it is a bad idea. If you need to scan and add items to a dict, do it in 2 steps.</p>
+</li>
+</ol>
+<h2 id="Practical-Concequeces-of-how-sets-Work">
+<a class="anchor" href="#Practical-Concequeces-of-how-sets-Work" aria-hidden="true"><span class="octicon octicon-link"></span></a>Practical Concequeces of how sets Work<a class="anchor-link" href="#Practical-Concequeces-of-how-sets-Work"> </a>
+</h2>
+<p>similar to dict, sets and frozensets also implement hash tables but each bucket only holds a reference. Just like dicts but without a value to go with it. similar concequences as above.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dictionaries are a keystone of Python. Beyond the basic dict , the standard library offers
+handy, ready-to-use specialized mappings like defaultdict , OrderedDict , ChainMap ,
+and Counter , all defined in the collections module. The same module also provides
+the easy-to-extend UserDict class.</p>
+<p>Two powerful methods available in most mappings are setdefault and update . The
+setdefault method is used to update items holding mutable values, for example, in a
+dict of list values, to avoid redundant searches for the same key. The update method
+allows bulk insertion or overwriting of items from any other mapping, from iterables
+providing (key, value) pairs and from keyword arguments. Mapping constructors
+also use update internally, allowing instances to be initialized from mappings, iterables,
+or keyword arguments.</p>
+<p>A clever hook in the mapping API is the <strong>missing</strong> method, which lets you customize
+what happens when a key is not found.
+The collections.abc module provides the Mapping and MutableMapping abstract base
+classes for reference and type checking. The little-known MappingProxyType from the
+types module creates immutable mappings. There are also ABCs for Set and Mutable
+Set .</p>
+<p>he hash table implementation underlying dict and set is extremely fast. Understand‐
+ing its logic explains why items are apparently unordered and may even be reordered
+behind our backs. There is a price to pay for all this speed, and the price is in memory.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/fluent-python/2021/07/25/ch3-dictionaries-and-sets.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fluent-python/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fluent-python/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fluent-python/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My notes from the best book for intermediate python.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/jjmachan" title="jjmachan"><svg class="svg-icon grey"><use xlink:href="/fluent-python/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
