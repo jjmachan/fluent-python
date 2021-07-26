@@ -119,6 +119,45 @@ value.</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">three</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">e</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">==</span> <span class="n">c</span> <span class="o">==</span> <span class="n">d</span> <span class="o">==</span> <span class="n">e</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="dict-Comprehensions">dict Comprehensions<a class="anchor-link" href="#dict-Comprehensions"> </a></h2><p>the syntax of listcomps and genexps can be used</p>
@@ -171,12 +210,12 @@ value.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are 3 main dictionary types. <code>dict</code>, <code>defaultdict</code>, <code>orderedDict</code>.</p>
-<p>dicts have a <code>get</code> function and <code>setdefault</code> function. Use the 2 wisely. Most of the time <code>setdefault()</code> is a wise choice because using <code>get()</code> can lead to more searches.</p>
-<p>There are 2 other methods to do this.</p>
+<h2 id="Overview-of-Common-Mapping-Methods">Overview of Common Mapping Methods<a class="anchor-link" href="#Overview-of-Common-Mapping-Methods"> </a></h2><p>There are 3 main dictionary types. <code>dict</code>, <code>defaultdict</code>, <code>orderedDict</code>.</p>
+<h3 id="Handlying-Missing-Keys-with-setdefault">Handlying Missing Keys with setdefault<a class="anchor-link" href="#Handlying-Missing-Keys-with-setdefault"> </a></h3><p>dicts have a <code>get</code> function which is what is used most of the time when you want to handle missing keys (every pythonista knows this one!). In some cases where we have to handle key error and use a default value when the keys is not present don't use <code>get</code> to define the default value, instead use <code>setdefault</code> function. Use the 2 wisely. Most of the time <code>setdefault()</code> is a wise choice because using <code>get()</code> can lead to more searches. This is when you are inserting. if you also what to do a lookup...</p>
+<h3 id="Mappings-with-Flexible-Key-Lookup">Mappings with Flexible Key Lookup<a class="anchor-link" href="#Mappings-with-Flexible-Key-Lookup"> </a></h3><p>There are 2 other methods to do this.</p>
 <ol>
-<li>Use <code>defaultdict</code></li>
-<li>subclass dict and add a <code>__missing__</code> method</li>
+<li>Use <code>defaultdict</code> - this expect a callable to be passed to the <code>defaultdict</code> constructor that will be called when there is a key error in the <code>__getitem__</code>. Note this will only be called for <code>__getitem__</code> and not for other functions like <code>.get()</code>. Under the hood, it is using the <code>__missing__</code> special methods.</li>
+<li>subclass dict and add a <code>__missing__</code> method - when <code>__getitem__</code> is called with a key that is not present, it calls the <code>__missing__</code> function if it is implemented to handle it. </li>
 </ol>
 
 </div>
@@ -193,7 +232,7 @@ value.</p>
 
 <span class="c1"># takes a callable which is called when there is a key error</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># what happend? -&gt; calls list() to create list and inserts that into key</span>
 </pre></div>
 
     </div>
@@ -235,8 +274,9 @@ value.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PinToFun</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     
+    <span class="c1"># the __getitem in dict calls this function</span>
     <span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span> <span class="c1"># check to avoid recursion</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
     
@@ -312,9 +352,9 @@ value.</p>
 
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-18-bc9cb425f661&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">KeyError</span>Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-12-bc9cb425f661&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>pins<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
 
 <span class="ansi-red-fg">KeyError</span>: 0</pre>
@@ -399,51 +439,11 @@ value.</p>
 <p><strong>Variations of Dict:</strong></p>
 <p><code>collections.OrderedDict</code>: Maintains keys in insertion order. Hence iteration is predictable.</p>
 <p><code>collections.ChainMap</code>: class is provided for quickly linking a number of mappings so they can be treated as a single unit. It is often much faster than creating a new dictionary and running multiple <code>update()</code>calls</p>
-<p><code>collections.Counter</code>: Holds the integer count of each key. Can be used to count instances of hashable objects.</p>
+<p><code>collections.Counter</code>: Holds the integer count of each key. Can be used to count instances of hashable objects. has addition functions like <code>most_common</code> to return the odered list of tuples.</p>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
-<span class="n">pylookup</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="nb">locals</span><span class="p">(),</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">vars</span><span class="p">(</span><span class="n">builtins</span><span class="p">))</span>
-<span class="n">pylookup</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-6a68e881e10b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> collections <span class="ansi-green-fg">import</span> ChainMap
-<span class="ansi-green-intense-fg ansi-bold">      2</span> pylookup <span class="ansi-blue-fg">=</span> ChainMap<span class="ansi-blue-fg">(</span>locals<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> globals<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> vars<span class="ansi-blue-fg">(</span>builtins<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> pylookup
-
-<span class="ansi-red-fg">ImportError</span>: cannot import name ChainMap</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -468,7 +468,7 @@ value.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Counter({&#39;a&#39;: 4, &#39;b&#39;: 1, &#39;c&#39;: 1, &#39;d&#39;: 3, &#39;h&#39;: 1, &#39;k&#39;: 2, &#39;l&#39;: 2, &#39;r&#39;: 1})</pre>
+<pre>Counter({&#39;a&#39;: 4, &#39;b&#39;: 1, &#39;c&#39;: 1, &#39;h&#39;: 1, &#39;d&#39;: 3, &#39;r&#39;: 1, &#39;l&#39;: 2, &#39;k&#39;: 2})</pre>
 </div>
 
 </div>
@@ -481,7 +481,7 @@ value.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>collections.UserDict</code>: Used as base class for creating new mapping classes. The main reason we don't use <code>dict</code> as base class is that it has some implementation shortcuts that we will have to override in order to make it work.</p>
+<p><code>collections.UserDict</code>: Used as base class for creating new mapping classes. The main reason we don't use <code>dict</code> as base class is that it has some implementation shortcuts that we will have to override in order to make it work. Note that <code>UserDict</code> does not inherit from <code>dict</code> instead has <code>data</code>, which is a dict instance to avoid possible recursion issues.</p>
 <p>we will now modify the PinToFun class using this to show its effectiveness.</p>
 
 </div>
@@ -587,7 +587,7 @@ value.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Immutable-Mappings">Immutable Mappings<a class="anchor-link" href="#Immutable-Mappings"> </a></h3><p>mapping types are mutable but if you want to constrain the user from making changes, use this.</p>
+<h2 id="Immutable-Mappings">Immutable Mappings<a class="anchor-link" href="#Immutable-Mappings"> </a></h2><p>mapping types are mutable but if you want to constrain the user from making changes, use this.</p>
 <p>Introducing <code>MappingProxy</code> from <code>types</code> module. This returns a read-only by dynamic view of the original mapping. Hence updates can be seen but no changes can be performed using the <code>mappingproxy</code></p>
 
 </div>
