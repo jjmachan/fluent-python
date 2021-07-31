@@ -1260,9 +1260,10 @@ Wall time: 8.58 µs
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="dict-and-set-under-the-Hood">dict and set under the Hood<a class="anchor-link" href="#dict-and-set-under-the-Hood"> </a></h2><p>dict and set has really fast membership operations (lookup) due to the fact that they are implemented using hash tables. Comparing this with something like a list, there is a world of difference. All this is due to the hash tables.</p>
+<h2 id="dict-and-set-under-the-Hood"><code>dict</code> and <code>set</code> under the Hood<a class="anchor-link" href="#dict-and-set-under-the-Hood"> </a></h2><p>dict and set has really fast membership operations (lookup) due to the fact that they are implemented using hash tables. Comparing this with something like a list, there is a world of difference. All this is due to the hash tables.</p>
 <h3 id="Hash-Tables">Hash Tables<a class="anchor-link" href="#Hash-Tables"> </a></h3><p>It is implemented as a sparse array. Each cell in the array is called a <code>bucket</code>. In a dict table each bucket has 2 fields, a ref to the key and a ref to the value item.</p>
 <p>Python tries to keep 1/3 of the buckets empty. If its size increases it is copied out to a know location with larger memory. The first set in putting an element inside is to hash the item.</p>
+<p>To put an item in hash table, the first step is to calculate the <em>hash value</em> of the item key. This is a unique value for the given data type. The <code>hash()</code> function is called, which in turn uses the <code>__hash__</code> for calculating the hash.</p>
 
 </div>
 </div>
@@ -1274,43 +1275,7 @@ Wall time: 8.58 µs
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">hash</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-35e31e935e9e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>hash<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">TypeError</span>: unhashable type: &#39;list&#39;</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> <span class="nb">hash</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="nb">hash</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1325,7 +1290,7 @@ Wall time: 8.58 µs
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2528502973977326415</pre>
+<pre>1</pre>
 </div>
 
 </div>
@@ -1338,7 +1303,6 @@ Wall time: 8.58 µs
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>has()</code> is a build in function that calls the <code>__hash__</code> for user-defined types.</p>
 <p>If 2 objs compare equal there hash values must be equal.</p>
 
 </div>
@@ -1379,7 +1343,47 @@ Wall time: 8.58 µs
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note: There is a detailed overview of the hash table algorithms in the book. Please google for it to find it. (It is in page 89 in the book).</p>
+<p>Also hashes for objects that are similar to should be as different as possible.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">hash</span><span class="p">(</span><span class="mf">1.001</span><span class="p">),</span> <span class="nb">hash</span><span class="p">(</span><span class="mf">1.002</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(2305843009213441, 4611686018427393)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note: There is a detailed overview of the hash table algorithms in the book. Please google for it to find it. (It is in page 89 in the book). I actually forgot all about hashes, shouldn't have skipped those classes in college...</p>
 <h2 id="Practical-Consequeces-of-How-dict-Works">Practical Consequeces of How dict Works<a class="anchor-link" href="#Practical-Consequeces-of-How-dict-Works"> </a></h2><ol>
 <li><p><strong>keys must be hashable objects</strong> - the object must support <code>hash()</code> funtion and <code>eq()</code> function. also if <code>a == b</code> the <code>hash(a) == hash(b)</code>. By default all user objects are hashable.</p>
 </li>
