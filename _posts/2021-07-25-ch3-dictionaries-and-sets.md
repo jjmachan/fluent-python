@@ -1403,6 +1403,7 @@ Wall time: 8.58 µs
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>to sum up</p>
 <p>Dictionaries are a keystone of Python. Beyond the basic dict , the standard library offers
 handy, ready-to-use specialized mappings like defaultdict , OrderedDict , ChainMap ,
 and Counter , all defined in the collections module. The same module also provides
@@ -1420,7 +1421,7 @@ The collections.abc module provides the Mapping and MutableMapping abstract base
 classes for reference and type checking. The little-known MappingProxyType from the
 types module creates immutable mappings. There are also ABCs for Set and Mutable
 Set .</p>
-<p>he hash table implementation underlying dict and set is extremely fast. Understand‐
+<p>The hash table implementation underlying dict and set is extremely fast. Understand‐
 ing its logic explains why items are apparently unordered and may even be reordered
 behind our backs. There is a price to pay for all this speed, and the price is in memory.</p>
 
