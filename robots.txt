@@ -1,1 +1,1 @@
-Sitemap: https://jjmachan.github.io/fluent-python/sitemap.xml
+Sitemap: https://fluentpython.jjmachan.in/sitemap.xml
